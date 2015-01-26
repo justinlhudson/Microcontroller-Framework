@@ -86,6 +86,7 @@ Comming Soon!
 ## Credits
 
 [FreeRTOS](http://www.freertos.org/)
+[Atmel](http://www.atmel.com/products/microcontrollers/avr/)
 
 ## License
 
