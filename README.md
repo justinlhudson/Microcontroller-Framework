@@ -44,12 +44,15 @@ Functions defined to activate at top level */Core/Application.hpp*.
 
     void Setup(void)
     {
-
+      // your setup code goes here
     }
 
     void Loop(void)
     {
+      // your runtime code goes here
+      
       Trace::Instance()->Log(Trace::Info, "@")
+      Delay(5);
     }
 
 

@@ -22,10 +22,13 @@ using namespace Core;
 
 void Setup(void)
 {
-
+  // your setup code goes here
 }
 
 void Loop(void)
 {
-  Trace::Instance()->Log(Trace::Info, "@");
+  // your runtime code goes here
+  
+  Trace::Instance()->Log(Trace::Info, "@")
+  Delay(5);
 }
