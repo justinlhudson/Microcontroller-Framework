@@ -1,14 +1,7 @@
-/*-----------------------------------------------------------------------------
- * 
- * Released: <2010/04/06>
- * Modified: <YEAR/MONTH/DAY>
- * 
- * Description: Body File.
- * 
- *-----------------------------------------------------------------------------
- */
-
-#include "System/include/Tools.h"
+extern "C"
+{
+  #include "System/include/Tools.h"
+}
 
 #include "../include/ThreadPool.hpp"
 using namespace Service;

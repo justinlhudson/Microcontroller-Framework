@@ -1,9 +1,8 @@
+#include "System/include/Types.h"
 
-#include "../../../System/include/Types.h"
-
-#include "../../../Service/include/Trace.hpp"
-#include "../../../Service/include/ThreadPool.hpp"
-#include "../../../Service/include/Semaphore.hpp"
+#include "Service/include/Trace.hpp"
+#include "Service/include/ThreadPool.hpp"
+#include "Service/include/Semaphore.hpp"
 using namespace Service;
 
 #define ADD_RUNS        6

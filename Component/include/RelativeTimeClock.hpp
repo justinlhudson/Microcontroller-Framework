@@ -11,7 +11,10 @@
 #ifndef _RELATIVE_TIME_CLOCK_HPP_
 #define _RELATIVE_TIME_CLOCK_HPP_
 
-#include "System/include/Types.h"
+extern "C"
+{
+  #include "System/include/Types.h"
+}
 
 #include "Service/include/Semaphore.hpp"
 #include "Service/include/ThreadAbstract.hpp"

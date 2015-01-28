@@ -44,4 +44,7 @@
 //Max. amount of wait conditions
 #define WAIT_TAGS_MAX                                     CREATE_TASKS
 
+// Defined usarts active/setup
+#define NUMBER_USARTS                                     1
+
 #endif

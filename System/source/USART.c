@@ -9,16 +9,16 @@
 
 #include "Core/include/Configuration.h"
 
-#define UART_BAUD_SELECT(b) ( ((CPU_CLOCK_HZ)/((b)*16)) -1)
+#define UART_BAUD_SELECT(b)     ( ((CPU_CLOCK_HZ)/((b)*16)) -1)
 // Used with async operation ONLY!
-#define UART_BAUD_SELECT_2X(b) ( (((CPU_CLOCK_HZ)/((b)*8)) -1)|0x8000)
+#define UART_BAUD_SELECT_2X(b)     ( (((CPU_CLOCK_HZ)/((b)*8)) -1)|0x8000)
 
 struct USART_t
 {
   int8 buffer[USART_BUFFER_LENGTH];
   uint8 count;
   uint8 offset;
-} USART[1];  // just 1;
+} USART[NUMBER_USARTS];
 
 void USART_Initialize(uint8 usart, uint32 baud)
 {
@@ -35,7 +35,7 @@ void USART_Initialize(uint8 usart, uint32 baud)
       UCSR0B = (1<<RXEN0)|(1<<TXEN0)|(1<<RXCIE0)|(0<<UDRIE0);
       //set baud
       UBRR0H = (uint8)(brr>>8);
-      UBRR0L = (uint8)brr;  
+      UBRR0L = (uint8)brr;
       //UBRR0 = brr;
 
       //Set frame format: 8data, parity 'none',1stop bit, on falling edge

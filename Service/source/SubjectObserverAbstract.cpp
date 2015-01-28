@@ -1,13 +1,3 @@
-/*-----------------------------------------------------------------------------
- * 
- * Released: <2010/01/21>
- * Modified: <YEAR/MONTH/DAY>
- * 
- * Description: 
- * 
- *-----------------------------------------------------------------------------
- */
-
 #include "../include/Trace.hpp"
 #include "../include/SubjectObserverAbstract.hpp"
 using namespace Service;

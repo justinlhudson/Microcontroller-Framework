@@ -8,7 +8,10 @@
  *-----------------------------------------------------------------------------
  */
 
-#include "System/include/Tools.h"
+extern "C"
+{
+  #include "System/include/Tools.h"
+}
 
 #include "Service/include/EEPROM.hpp"
 #include "Service/include/ThreadPool.hpp"

@@ -12,7 +12,12 @@
 #include <stdarg.h>
 #include <string.h>
 
-#include "System/include/Types.h"
+extern "C"
+{
+  #include "System/include/Types.h"
+  #include "System/include/Tools.h"
+  #include "System/include/Definitions.h"
+}
 
 #include "Service/include/Trace.hpp"
 using namespace Service;
@@ -29,6 +34,6 @@ void Loop(void)
 {
   // your runtime code goes here
   
-  Trace::Instance()->Log(Trace::Info, "@")
+  Trace::Instance()->Log(Trace::Info, "*")
   Delay(5);
 }

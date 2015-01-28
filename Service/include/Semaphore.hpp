@@ -14,8 +14,11 @@
 #include <stdio.h>
 #include <string.h>
 
-#include "System/include/Types.h"
-#include "System/include/Semaphore.h"
+extern "C"
+{
+  #include "System/include/Types.h"
+  #include "System/include/Semaphore.h"
+}
 
 namespace Service
 {

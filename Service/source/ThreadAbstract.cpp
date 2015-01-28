@@ -1,14 +1,7 @@
-/*-----------------------------------------------------------------------------
- * 
- * Released: <2010/03/25>
- * Modified: <YEAR/MONTH/DAY>
- * 
- * Description: Body File.
- * 
- *-----------------------------------------------------------------------------
- */
-
-#include "../../System/include/Tools.h"
+extern "C"
+{
+  #include "../../System/include/Tools.h"
+}
 
 //#include "../include/IException.hpp"
 #include "../include/ThreadAbstract.hpp"
@@ -83,6 +76,7 @@ THREAD_FUNCTION ThreadAbstract::EntryPoint(THREAD_ARGS handler)
 THREAD_FUNCTION ThreadAbstract::Process(void *args)
 {
   PreExecute();  //virtual
+  Delay(0); //give back to scheduler
   while(_run)
   {
     if(!_suspend)
@@ -91,7 +85,7 @@ THREAD_FUNCTION ThreadAbstract::Process(void *args)
       Delay(0);  //give back to scheduler
     }
     else
-      Delay(5);
+      Delay(50);
   }
 
   _run = false;

@@ -1,7 +1,7 @@
-#include "../../../System/include/Types.h"
+#include "System/include/Types.h"
 
-#include "../../../Service/include/Trace.hpp"
-#include "../../../Service/include/ThreadAbstract.hpp"
+#include "Service/include/Trace.hpp"
+#include "Service/include/ThreadAbstract.hpp"
 using namespace Service;
 
 class ThreadAbstract_Test0 : public ThreadAbstract
@@ -17,10 +17,10 @@ class ThreadAbstract_Test0 : public ThreadAbstract
       Count = 0;
     }  
 
-    virtual void PreExecute() 
+    virtual void PreExecute()
     { 
       Init = 1;
-      Trace *trace = Trace::Instance(); 
+      Trace *trace = Trace::Instance();
       trace->Log(Trace::Debug,"ThreadAbstract_Test.cpp, PreExecute - Setup\n");
     };
 

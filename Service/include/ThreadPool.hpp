@@ -13,8 +13,11 @@
 
 #include <stdio.h>
 
-#include "System/include/Types.h"
-#include "System/include/Thread.h"
+extern "C"
+{
+  #include "System/include/Types.h"
+  #include "System/include/Thread.h"
+}
 
 #include "Core/include/Configuration.h"
 
@@ -27,7 +30,7 @@ using namespace Service;
 #define THREAD_POOL_WORKERS 1
 #endif
 #if !defined(THREAD_POOL_SIZE)
-#define THREAD_POOL_SIZE  6
+#define THREAD_POOL_SIZE  3
 #endif
 
 namespace Service

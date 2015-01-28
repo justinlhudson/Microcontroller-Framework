@@ -11,7 +11,10 @@
 #ifndef _WDT_HPP_
 #define _WDT_HPP_
 
-#include "System/include/Types.h"
+extern "C"
+{
+  #include "System/include/Types.h"
+}
 
 namespace Service
 {
@@ -21,7 +24,7 @@ namespace Service
   class WDT
   {
     public:
-     
+
       /// <summary>
       /// On
       /// </summary>
@@ -47,10 +50,10 @@ namespace Service
       /// </summary>
       static void Reset(void);
 
-    private:   
+    private:
        
-      static uint16 m_timeout;
-      static bool m_flag;
+      static uint16 _timeout;
+      static bool _flag;
   };
 };
 

@@ -40,12 +40,14 @@
 
 #define ARRAY_SIZE(a)                  (sizeof( a ) / sizeof( a[0] ))
 
-#define BIT_SET(arg,val)               ((arg) |=  (val))
-#define BIT_CLR(arg,val)               ((arg) &= ~(val))
-#define BIT_TOGGLE(arg,val)            ((arg) ^=  (val))
+#define PORT_CHECK(arg, val)             ((arg) & (val))
 
-#define BIT_HIGH(arg,val)              BIT_SET(arg,val)
-#define BIT_LOW(arg,val)               BIT_CLR(arg,val)
+#define PORT_SET(arg,val)               ((arg) |=  (val))
+#define PORT_CLR(arg,val)               ((arg) &= ~(val))
+#define PORT_TOGGLE(arg,val)            ((arg) ^=  (val))
+
+#define PORT_HIGH(arg,val)              PORT_SET(arg,val)
+#define PORT_LOW(arg,val)               PORT_CLR(arg,val)
 
 /*
   Used as Generic Swap

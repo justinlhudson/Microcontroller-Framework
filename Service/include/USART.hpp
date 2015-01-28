@@ -11,7 +11,10 @@
 #ifndef _USART_HPP_
 #define _USART_HPP_
 
-#include "System/include/Types.h"
+extern "C"
+{
+  #include "System/include/Types.h"
+}
 
 #include "Core/include/Configuration.h"
 

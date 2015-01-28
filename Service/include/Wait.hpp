@@ -13,8 +13,11 @@
 
 #include <stdio.h>
 
-#include "System/include/Thread.h"
-#include "System/include/Types.h"
+extern "C"
+{
+  #include "System/include/Thread.h"
+  #include "System/include/Types.h"
+}
 
 #include "Core/include/Configuration.h"
 

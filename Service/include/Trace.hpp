@@ -16,9 +16,12 @@
 #include <stdarg.h>
 #include <string.h>
 
-#include "Core/include/Configuration.h"
+extern "C"
+{
+  #include "System/include/Types.h"
+}
 
-#include "System/include/Types.h"
+#include "Core/include/Configuration.h"
 
 #include "USART.hpp"
 #include "Semaphore.hpp"

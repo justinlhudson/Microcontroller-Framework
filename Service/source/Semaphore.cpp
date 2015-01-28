@@ -1,13 +1,3 @@
-/*-----------------------------------------------------------------------------
- * 
- * Released: <2010/03/25>
- * Modified: <YEAR/MONTH/DAY>
- * 
- * Description: Body file.
- * 
- *-----------------------------------------------------------------------------
- */
-
 #include "Service/include/ThreadAbstract.hpp"
 #include "../include/Semaphore.hpp"
 using namespace Service;

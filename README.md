@@ -1,6 +1,6 @@
 # Microcontroller-Framework
 
-The goal is to create a template project to create applications independent of the microcontroller.  By creating classes to abstract the specifics of the microcontroller one can more easily change between controllers without having to change the higher level application.
+The goal is to create a template project to create applications independent of the microcontroller MCU.  By creating classes to abstract the specifics of the microcontroller one can more easily change between controllers without having to change the higher level application.
 
 ## Development
 
@@ -15,6 +15,8 @@ Currently working under OS X, but should easily work under Linux as well...
 
 ## Usage
 
+Currently only setup for [Atmel](http://www.atmel.com/products/microcontrollers/avr/) Family MCUs! Simply use #if, #elfi, #else to seperate "MODEL" when expanding to other model families.
+
   - Build
      - build.sh
        - make clean && make MODEL=atmega2560 CLOCK=16000000
@@ -26,21 +28,9 @@ Currently working under OS X, but should easily work under Linux as well...
 
 ## Implementation
 
-Functions defined to activate at top level */Core/Application.hpp*.  
+Application code placement under *Application/*
 
   -Example: Run.cpp
-
-    #include <stdio.h>
-    #include <stdarg.h>
-    #include <string.h>
-
-    #include "System/include/Types.h"
-
-    #include "Service/include/Trace.hpp"
-    using namespace Service;
-
-    #include "Core/include/Application.hpp"
-    using namespace Core;
 
     void Setup(void)
     {
@@ -51,10 +41,8 @@ Functions defined to activate at top level */Core/Application.hpp*.
     {
       // your runtime code goes here
       
-      Trace::Instance()->Log(Trace::Info, "@")
-      Delay(5);
+      Trace::Instance()->Log(Trace::Info, "*")
     }
-
 
 Include your source in MakeFile under:
 
@@ -65,18 +53,22 @@ Include your source in MakeFile under:
 
     \#CPPSRC += \
 
-    /Application/source/Run.cpp 
+    /Application/source/Run.cpp
 
     \#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ## Hardware
 
 ### Controllers
-Currently only one, as others where deprecated.
+Currently only one, as others were deprecated.
 
 Important: With threading minimum SRAM is 4kb!
 
   - **ATmega2560**
+    - Timer 1: Taken for [FreeRTOS](http://www.freertos.org/) operation.
+    - If Instantiated:
+      - Timer 2: Selected timer for controlling 2 PWM motors.
+      - Timer 3: Selected timer for controlling 2 PWM servos.
 
 ### Boards
 Currently board independent.
@@ -84,16 +76,19 @@ Currently board independent.
   - Note: ATmega2560 is being developed using [Arduino Mega 2560](http://arduino.cc/en/Main/arduinoBoardMega2560), but not dependent on the board.
 
 ### Shields/Hardware
-Comming Soon!
+
+  - UltrasonicSensor (model: Parallax HC-SR03/4)
+    - Note: 4 pin connect Trig & Echo pins together to make 3 pin
+  - 180 Degree Servo (model: Parallax #900-00005)
 
 ## Credits
 
 [FreeRTOS](http://www.freertos.org/)
-
+  
 [Atmel](http://www.atmel.com/products/microcontrollers/avr/)
   
 [Arduino](http://arduino.cc/)
-
+  
 ## License
 
 LGPLv3

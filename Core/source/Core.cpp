@@ -1,13 +1,22 @@
+/*-----------------------------------------------------------------------------
+ * 
+ * Released: <2010/08/04>
+ * Modified: <YEAR/MONTH/DAY>
+ * 
+ * Description: Main entry point!
+ * 
+ *-----------------------------------------------------------------------------
+ */
+
 #include <stdlib.h>
 #include <string.h>
 
-#include "System/include/Types.h"
-#include "System/include/Definitions.h"
-#include "System/include/Tools.h"
-#include "System/include/Thread.h"
-
 extern "C"
 {
+  #include "System/include/Types.h"
+  #include "System/include/Definitions.h"
+  #include "System/include/Tools.h"
+  #include "System/include/Thread.h"
   #include "System/include/Power.h"
 }
 
@@ -108,10 +117,10 @@ void ShowSystemUsage(void)
 
 #if TEST > 0
   #if TEST == 1
-    #include "Testing/Service/source/ThreadAbstract_Test.cpp"
+    #include "Test/Service/source/ThreadAbstract_Test.cpp"
   #endif
   #if TEST == 2
-    #include "Testing/Service/source/ThreadPool_Test.cpp"
+    #include "Test/Service/source/ThreadPool_Test.cpp"
   #endif
 
   THREAD_FUNCTION Testing(THREAD_ARGS args)

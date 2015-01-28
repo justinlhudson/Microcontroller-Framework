@@ -13,7 +13,10 @@
 
 #include <stdio.h>
 
-#include "System/include/Types.h"
+extern "C"
+{
+  #include "System/include/Types.h"
+}
 
 namespace Service
 {

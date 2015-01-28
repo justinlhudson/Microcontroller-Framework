@@ -16,7 +16,10 @@
 #include <stdarg.h>
 #include <string.h>
 
-#include "System/include/Types.h"
+extern "C"
+{
+  #include "System/include/Types.h"
+}
 
 #include "Service/include/Trace.hpp"
 #include "Service/include/Semaphore.hpp"

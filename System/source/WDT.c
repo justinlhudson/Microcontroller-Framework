@@ -15,36 +15,32 @@ void get_mcusr(void) \
   __attribute__((section(".init3")));
 void get_mcusr(void)
 {
-  mcusr_mirror = MCUSR;
-  MCUSR = 0;
-  wdt_disable();
+  CRITICAL_SECTION_ENTER();
+  {
+    mcusr_mirror = MCUSR;
+    MCUSR = 0;
+    wdt_disable();
+  }
+  CRITICAL_SECTION_EXIT();
 }
 
 uint8 WDT_PrescalerChange(uint32);
 
-void WDT_Reset(void) 
+void WDT_Reset(void)
 { 
   wdt_reset();
 }
 
 void WDT_On(uint16 timeout)
 {
-  CRITICAL_SECTION_ENTER();
-  {
-    wdt_enable(WDT_PrescalerChange(timeout));
-    wdt_reset();
-  }
-  CRITICAL_SECTION_EXIT();
+  wdt_enable(WDT_PrescalerChange(timeout));
+  wdt_reset();
 }
 
 void WDT_Off(void)
 {
-  CRITICAL_SECTION_ENTER();
-  {
-    wdt_reset();
-    wdt_disable();
-  }
-  CRITICAL_SECTION_EXIT();
+  wdt_reset();
+  wdt_disable();
 }
 
 uint8 WDT_PrescalerChange(uint32 timeout)

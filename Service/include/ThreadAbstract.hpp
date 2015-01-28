@@ -13,8 +13,11 @@
 
 #include <stdio.h>
 
-#include "System/include/Types.h"
-#include "System/include/Thread.h"
+extern "C"
+{
+  #include "System/include/Types.h"
+  #include "System/include/Thread.h"
+}
 
 namespace Service
 {

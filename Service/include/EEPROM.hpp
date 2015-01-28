@@ -11,7 +11,10 @@
 #ifndef _EEPROM_HPP_
 #define _EEPROM_HPP_
 
-#include "System/include/Types.h"
+extern "C"
+{
+  #include "System/include/Types.h"
+}
 
 namespace Service
 {

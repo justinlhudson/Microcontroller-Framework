@@ -75,16 +75,19 @@ Service/source/EEPROM.cpp \
 Service/source/USART.cpp \
 Service/source/ThreadPool.cpp \
 Service/source/WDT.cpp \
-Component/source/RelativeTimeClock.cpp 
+Component/source/RelativeTimeClock.cpp \
+Core/source/Application.cpp
+
+CPPSRC += \
+Driver/source/UltraSonicSensor.cpp \
+Driver/source/Servo.cpp \
+Driver/source/Motor.cpp
 
 #ifneq ($(TEST), TEST=0)
 #	CSRC += \
-#	Tests/Service/source/ThreadAbstract_Test.cpp \
-#	Tests/Service/source/ThreadPool_Test.cpp 
+#	Test/Service/source/ThreadAbstract_Test.cpp \
+#	Test/Service/source/ThreadPool_Test.cpp 
 #endif
-
-CPPSRC += \
-Core/source/Application.cpp
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -478,4 +481,3 @@ $(shell mkdir $(OBJDIR) 2>/dev/null)
 .PHONY : all begin finish end sizebefore sizeafter gccversion \
 build elf hex eep lss sym coff extcoff \
 clean clean_list program debug gdb-config
-

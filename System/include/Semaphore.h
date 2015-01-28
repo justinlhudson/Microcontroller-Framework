@@ -16,10 +16,10 @@
 #include "semphr.h" 
 
 #include "Types.h"
-  /*
-    Note: Mutexes can be applied only to threads in a single process and do not
-    work between processes as do semaphores. 
-  */
+/*
+  Note: Mutexes can be applied only to threads in a single process and do not
+  work between processes as do semaphores. 
+*/
 
 #define SEMAPHORE_HANDLE                      xSemaphoreHandle
 
