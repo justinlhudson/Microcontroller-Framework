@@ -79,7 +79,7 @@ Component/source/RelativeTimeClock.cpp \
 Core/source/Application.cpp
 
 CPPSRC += \
-Driver/source/UltraSonicSensor.cpp \
+Driver/source/UltrasonicSensor.cpp \
 Driver/source/Servo.cpp \
 Driver/source/Motor.cpp
 

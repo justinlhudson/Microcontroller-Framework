@@ -40,7 +40,7 @@
 
 #define ARRAY_SIZE(a)                  (sizeof( a ) / sizeof( a[0] ))
 
-#define PORT_CHECK(arg, val)             ((arg) & (val))
+#define PORT_CHECK(arg, val)            ((arg) & (val))
 
 #define PORT_SET(arg,val)               ((arg) |=  (val))
 #define PORT_CLR(arg,val)               ((arg) &= ~(val))

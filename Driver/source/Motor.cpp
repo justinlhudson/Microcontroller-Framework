@@ -15,11 +15,11 @@ using namespace Driver;
 
 Motor::Motor(uint8 timer)
 {
-  m_timer = timer;
+  _timer = timer;
 
   CRITICAL_SECTION_ENTER();
   {
-    if(m_timer == 2)
+    if(_timer == 2)
     {
       // Fast PWM, Phase Correct, clear
       TCCR2A = (1<<COM2A1)|(0<<COM2A0)|(1<<COM2B1)|(0<<COM2B0)|(0<<WGM21)|(1<<WGM20);
