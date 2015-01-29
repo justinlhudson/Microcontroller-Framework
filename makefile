@@ -15,8 +15,12 @@ ifndef TEST
 	TEST = 0
 endif
 
+ifndef NAME
+	NAME = development
+endif
+
 # Define which test number to run
-DEFS = -DF_CPU=$(F_CPU)UL -DTEST=$(TEST) -DBOARD=$(BOARD)
+DEFS = -DF_CPU=$(F_CPU)UL -DTEST=$(TEST) -DBOARD=$(BOARD) -DNAME=$(NAME)
 
 # Output format. (can be srec, ihex, binary)
 FORMAT = ihex

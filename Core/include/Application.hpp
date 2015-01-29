@@ -29,6 +29,7 @@ using namespace Service;
 
 extern void Setup(void);
 extern void Loop(void);
+extern void Echo(object *value);
 
 namespace Core
 {

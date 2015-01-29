@@ -20,6 +20,8 @@ extern "C"
   #include "System/include/Power.h"
 }
 
+#include "Core/include/Configuration.h"
+
 #include "Service/include/WDT.hpp"
 #include "Service/include/Trace.hpp"
 using namespace Service;
@@ -54,7 +56,14 @@ intsys main(void)
   Application application; // static
 #endif
 
-  Delay(250);  //should be hard delay, without scheduler running yet...
+  // let things (pins values and what not) settle (feels good)
+  DELAY_MS(125);
+
+  // Note:  Used for auto search correct port for USB coms.
+  // App. simply looks for label value to come through...
+  Trace::Instance()->Log(Trace::Operation, "%s", STRING(LABEL));
+
+  Delay(250);  // if connecting for tracing give some time to see traces
 
   Trace::Instance()->Log(Trace::Info,"\n\rWelcome...\n\r");
 

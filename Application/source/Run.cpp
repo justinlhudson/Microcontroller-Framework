@@ -25,9 +25,20 @@ using namespace Service;
 #include "Core/include/Application.hpp"
 using namespace Core;
 
+void Echo(object *value)
+{
+  // debug echoes trace input char at a time
+
+  intsys iptr = (intsys)value;  //cast objects
+  int8 result = (int8)iptr;
+  Trace::Instance()->Log(Trace::Info,"%s", result);
+}
+
 void Setup(void)
 {
   // your setup code goes here
+
+  TRACE_LINE();  // example debug with line
 }
 
 void Loop(void)

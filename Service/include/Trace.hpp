@@ -19,6 +19,7 @@
 extern "C"
 {
   #include "System/include/Types.h"
+  #include "System/include/Tools.h"
 }
 
 #include "Core/include/Configuration.h"
@@ -31,6 +32,8 @@ using namespace Service;
 
 namespace Service
 {
+
+  #define TRACE_LINE()      Trace::Instance()->Log(Trace::Debug, "\n\r ~"); Trace::Instance()->Log(Trace::Debug, LINE); Trace::Instance()->Log(Trace::Debug, "~ \n\r")
   /// <summary>
   /// Trace Operations
   /// 
@@ -51,7 +54,7 @@ namespace Service
       /// </summary>
       enum Option
       {
-        All=0, Fatal=1, Error=2, Warning=3, Info=4, Debug=5, Operation = 64, None = 128
+        All=128, Fatal=1, Error=2, Warning=3, Info=4, Debug=5, Operation = -1, None = -128
       };
       
       /// <summary>

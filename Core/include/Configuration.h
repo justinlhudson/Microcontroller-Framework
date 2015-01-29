@@ -13,6 +13,8 @@
 
 //Note: Timer1 (16-bit) is used for FreeRTOS
 
+#define LABEL                                             (NAME)
+
 #define BOARD_ARDUINO_UNO                                 1
 #define BOARD_TYPE                                        (BOARD)
 
@@ -27,8 +29,8 @@
 
 #define CPU_CLOCK_HZ                                      (F_CPU)
 
-//Used to Trace Logging (uin8 max)
-#define TRACE_BAUD_RATE                                   9600
+//Used to Trace Logging (uin8 max) 9600 (normal), 115200 (greater 2x), 2000000 (2mb max on 16mhz)
+#define TRACE_BAUD_RATE                                   2000000
 
 #define TRACE_LEVEL                                       Trace::Debug
 

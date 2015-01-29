@@ -36,10 +36,7 @@ Application::~Application(void)
 
 void Application::Update(object *value)
 {
-  intsys iptr = (intsys)value;  //cast objects
-  int8 result = (int8)iptr;
-
-  _trace->Log(Trace::Debug, "%s", result); //echo input
+  Echo(value);
 }
 
 void Application::PreExecute(void)

@@ -69,7 +69,7 @@ bool Trace::Log(Trace::Option level, const int8* format, ...)
     _lock.SectionEnter();
     { 
       int32 length = 0;
-      int8 buffer[Trace::MaxLength];
+      int8 buffer[Trace::MaxLength]; // faster/better on controller to not have to define each time to just set max
       memset(buffer,'\0',ARRAY_SIZE(buffer));
 
       va_list args;

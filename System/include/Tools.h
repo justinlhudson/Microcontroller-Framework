@@ -23,6 +23,11 @@
 //makes anything into a string
 #define STRING(s)                      #s
 
+#define STRINGIFY(x) #x
+#define TOSTRING(x) STRINGIFY(x)
+// will give line number of where "LINE" is placed (cool!)
+#define LINE __FILE__ ":" TOSTRING(__LINE__)
+
 #define SHIFT_L(type,X,Y)              ( (X) << (sizeof(type) * 8) * (Y) )
 #define SHIFT_R(type,X,Y)              ( (X) >> (sizeof(type) * 8) * (Y) )
 
