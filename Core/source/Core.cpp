@@ -63,11 +63,12 @@ intsys main(void)
   // App. simply looks for label value to come through...
   Trace::Instance()->Log(Trace::Operation, "%s", STRING(LABEL));
 
+  ShowSystemUsage();
+
   Delay(250);  // if connecting for tracing give some time to see traces
 
   Trace::Instance()->Log(Trace::Info,"\n\rWelcome...\n\r");
 
-  ShowSystemUsage();
   THREAD_SCHEDULER(); //is a locking function 
 
   /*

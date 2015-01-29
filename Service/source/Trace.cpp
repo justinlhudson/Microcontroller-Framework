@@ -52,7 +52,7 @@ void Trace::Activate()
   #endif
     _display = true;
 
-  Start(ThreadAbstract::Below);  //because buffer size is big
+  Start(ThreadAbstract::Above);  //because buffer size is big is not higher
 }
 
 void Trace::Deactivate()

@@ -66,7 +66,7 @@ RelativeTimeClock::TimeSpan_t RelativeTimeClock::Get(void)
 
 void RelativeTimeClock::Execute(void)
 {
-  Delay(999); //~1.00 sec (just under)
+  Delay(995); //~1.00 sec (just under)
 
   if(_active)
   {  

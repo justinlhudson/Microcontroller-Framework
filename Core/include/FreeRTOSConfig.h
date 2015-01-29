@@ -36,7 +36,7 @@
 #define configMINIMAL_STACK_SIZE	( ( unsigned short ) 256 )
 
 //The total amount of RAM available to the kernel (think of * # of tasks).
-#define configTOTAL_HEAP_SIZE   ( (size_t ) (configMINIMAL_STACK_SIZE * 2 * CREATE_TASKS) )
+#define configTOTAL_HEAP_SIZE   ( (size_t ) (configMINIMAL_STACK_SIZE * 3 * CREATE_TASKS) )
 
 // Manely used for debugging , includes endline
 // Note: hardcoded name so do not change.

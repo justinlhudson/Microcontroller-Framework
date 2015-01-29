@@ -33,7 +33,7 @@ using namespace Service;
 namespace Service
 {
 
-  #define TRACE_LINE()      Trace::Instance()->Log(Trace::Debug, "\n\r ~"); Trace::Instance()->Log(Trace::Debug, LINE); Trace::Instance()->Log(Trace::Debug, "~ \n\r")
+  #define TRACE_LINE()      Trace::Instance()->Log(Trace::Debug, "\n\r~"); Trace::Instance()->Log(Trace::Debug, LINE); Trace::Instance()->Log(Trace::Debug, "~ \n\r")
   /// <summary>
   /// Trace Operations
   /// 

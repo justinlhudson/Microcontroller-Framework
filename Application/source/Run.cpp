@@ -46,5 +46,5 @@ void Loop(void)
   // your runtime code goes here
   
   Trace::Instance()->Log(Trace::Info, "*");
-  Delay(5);
+  Delay(1000);
 }
