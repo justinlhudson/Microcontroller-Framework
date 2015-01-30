@@ -21,7 +21,9 @@ Currently only setup for [Atmel](http://www.atmel.com/products/microcontrollers/
      - build.sh
        - make clean && make MODEL=atmega2560 CLOCK=16000000
   - Deploy
-     - Example: avrdude -F -c arduino -p m328 -P /dev/tty.usbmodem1421 -U flash:w:Core.hex
+     - Example: 
+       - (Arduino 2560 Mega) avrdude -F -D -c stk500v2 -p m2560 -b 115200 -P /dev/tty.usbmodem1411 -U flash:w:Core.hex
+       - (Arduino Uno) avrdude -F -c arduino-p m328 -P /dev/tty.usbmodem1421 -U flash:w:Core.hex
   - Test
      - Under work
      - Example: make -TEST=1
@@ -32,16 +34,28 @@ Application code placement under *Application/*
 
   -Example: Run.cpp
 
+    void Echo(object *value)
+    {
+      // debug echoes trace input char at a time
+
+      intsys iptr = (intsys)value;  //cast objects
+      int8 result = (int8)iptr;
+      Trace::Instance()->Log(Trace::Info,"%s", result);
+    }
+
     void Setup(void)
     {
       // your setup code goes here
+
+      TRACE_LINE();  // example debug with line
     }
 
     void Loop(void)
     {
       // your runtime code goes here
       
-      Trace::Instance()->Log(Trace::Info, "*")
+      Trace::Instance()->Log(Trace::Info, "*");
+      Delay(1000);
     }
 
 Include your source in MakeFile under:
