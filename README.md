@@ -19,7 +19,7 @@ Currently only setup for [Atmel](http://www.atmel.com/products/microcontrollers/
 
   - Build
      - build.sh
-       - make clean && make MODEL=atmega2560 CLOCK=16000000
+       - make clean && make CLOCK=16000000
   - Deploy
      - Example: 
        - (Arduino 2560 Mega) avrdude -F -D -c stk500v2 -p m2560 -b 115200 -P /dev/tty.usbmodem1411 -U flash:w:Core.hex

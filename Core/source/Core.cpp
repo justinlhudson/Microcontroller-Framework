@@ -11,6 +11,10 @@
 #include <stdlib.h>
 #include <string.h>
 
+#if defined(__AVR_ATmega1280__) || defined(__AVR_ATmega2560__)
+#elif defined(__AVR_ATmega328P__)
+#endif
+
 extern "C"
 {
   #include "System/include/Types.h"

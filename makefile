@@ -5,7 +5,7 @@
 #
 # Requirements:  brew install - avr-binutils, avr-gcc, avr-libc, avrdude
 #----------------------------------------------------------------------------
-# MCU (e.g. atmega2056)
+# MCU (e.g. atmega2560)
 MCU = $(MODEL)
 
 # Processor frequency (e.g. 16000000)
@@ -20,7 +20,7 @@ ifndef NAME
 endif
 
 # Define which test number to run
-DEFS = -DF_CPU=$(F_CPU)UL -DTEST=$(TEST) -DBOARD=$(BOARD) -DNAME=$(NAME)
+DEFS = -DF_CPU=$(F_CPU)UL -DTEST=$(TEST)
 
 # Output format. (can be srec, ihex, binary)
 FORMAT = ihex

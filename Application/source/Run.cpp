@@ -38,6 +38,10 @@ void Setup(void)
 {
   // your setup code goes here
 
+  // LED on arduino
+  PORT_SET(DDRB, (1<<PB7)); // output
+  PORT_LOW(PORTB,1<<PB7); // low
+
   TRACE_LINE();  // example debug with line
 }
 
