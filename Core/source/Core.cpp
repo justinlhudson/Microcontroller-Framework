@@ -65,7 +65,7 @@ intsys main(void)
 
   // Note:  Used for auto search correct port for USB coms.
   // App. simply looks for label value to come through...
-  Trace::Instance()->Log(Trace::Operation, "%s", STRING(LABEL));
+  Trace::Instance()->Log(Trace::Operation, "%s \n\r", STRING(LABEL));
 
   ShowSystemUsage();
 
@@ -125,8 +125,8 @@ void ShowSystemUsage(void)
   MemoryUsage(&usage);
   Trace::Instance()->Log(Trace::Info,"Memory usage (bytes)\n\r");
   Trace::Instance()->Log(Trace::Info,
-                         " .data: %d\n\r .bss: %d\n\r .heap: %d\n\r .stack: %d\n\r available: %d\n\r",
-                         usage.data_size, usage.bss_size, usage.heap_size, usage.stack_size, usage.available);
+                         " .data: %d\n\r .bss: %d\n\r .heap: %d\n\r .stack: %d\n\r",
+                         usage.data_size, usage.bss_size, usage.heap_size, usage.stack_size);
 }
 
 #if TEST > 0
