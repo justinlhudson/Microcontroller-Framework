@@ -96,10 +96,18 @@ Driver/source/Motor.cpp
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 #### Application Code ####
-CPPSRC += \
-Application/source/Run.cpp
+# Note: for usage from parent makefile (if any)
+ifdef CPPSRC_EXTERNAL
+	CPPSRC += $(CPPSRC_EXTERNAL)
+else
+	CPPSRC += \
+	Application/source/Run.cpp
+endif
+
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
 
 # List Assembler source files here (e.g. *.s)
 ASRC =
