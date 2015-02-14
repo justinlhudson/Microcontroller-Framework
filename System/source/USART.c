@@ -122,7 +122,7 @@ ISR(USART_RX_vect)
     do
     {
       //if no frame, data flow, or parity error 
-      //if(!(UCSR0A & ( (1<<FE0) | (1<<DOR0) | (1<<UPE0) )))
+      if(!(UCSR0A & ( (1<<FE0) | (1<<DOR0) | (1<<UPE0) )))
       {
         USART[0].buffer[USART[0].count] = UDR0;
 
