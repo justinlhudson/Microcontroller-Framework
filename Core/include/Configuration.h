@@ -24,8 +24,8 @@
 
 // Defines number of tasks to be ready to create by changing heap size allocated.
 // Note: This is in addition to current framework setup/operations.
-// monitor (i.e. WDT), application, idle task, thread pool (X)
-#define CREATE_TASKS                                      (3 + THREAD_POOL_WORKERS)
+// monitor (i.e. WDT), application, idle task, relativeTime, thread pool (X)
+#define CREATE_TASKS                                      (4 + THREAD_POOL_WORKERS)
 
 #define CPU_CLOCK_HZ                                      (F_CPU)
 
