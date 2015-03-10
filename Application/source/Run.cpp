@@ -25,13 +25,46 @@ using namespace Service;
 #include "Core/include/Application.hpp"
 using namespace Core;
 
+#include "../include/Operation.hpp"
+using namespace Application;
+
+Operation *operation;
+
 void Echo(object *value)
 {
   // debug echoes trace input char at a time
-
   intsys iptr = (intsys)value;  //cast objects
   int8 result = (int8)iptr;
-  Trace::Instance()->Log(Trace::Info,"%s", result);
+  //Trace::Instance()->Log(Trace::Operation,"%s", result);
+
+  static Operation::Message message;
+  static int8 index = 0;
+  static int8 parse = 0;
+
+  if (result  == ',')
+  {
+    parse++;
+  }
+  else if (result  == '\n')
+  {
+    index = 0;
+    parse = 0;
+
+    operation->Command(message);
+  }
+  else
+  {
+    if(parse == 0)
+      message.Command[index] = result;
+    if(parse == 1)
+      message.Operation[index] = result;
+    if(parse == 2)
+      message.Value[index] = result;
+    if(parse == 3)
+      message.Response[index] = result;
+
+    index++;
+  }
 }
 
 void Setup(void)
@@ -43,12 +76,18 @@ void Setup(void)
   PORT_LOW(PORTB,1<<PB7); // low
 
   TRACE_LINE();  // example debug with line
+
+  // ToDo:  construct operation class constructor
+  operation = new Operation();
 }
 
 void Loop(void)
 {
   // your runtime code goes here
   
-  Trace::Instance()->Log(Trace::Info, "*");
-  Delay(1000);
+  //ToDo: run operation queue worker process
+  operation->Process();
+
+  //Trace::Instance()->Log(Trace::Info, "*"); // heartbeat
+  Delay(125);
 }
