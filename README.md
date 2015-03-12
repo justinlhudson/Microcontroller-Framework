@@ -13,6 +13,10 @@ Currently working under OS X, but should easily work under Linux as well...
       - brew install avr-libc
         - **avr-libc, avr-binutils, avr-gcc**
 
+### Ubuntu
+  - Avrdude
+    - apt-get install avrdude
+
 ## Usage
 
 Currently only setup for [Atmel](http://www.atmel.com/products/microcontrollers/avr/) Family MCUs! Simply use #if, #elfi, #else to seperate "MODEL" when expanding to other model families.
