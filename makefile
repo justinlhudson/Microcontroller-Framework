@@ -36,12 +36,12 @@ EXTRAINCDIRS = .
 EXTRAINCDIRS += \
 Core/include
 EXTRAINCDIRS += \
-External/FreeRTOS/FreeRTOSV8.2.0/FreeRTOS/Source/include \
-External/FreeRTOS/FreeRTOSV8.2.0/FreeRTOS/Source/portable/GCC/ATMega328-2560
+External/FreeRTOS/FreeRTOSV8.2.3/FreeRTOS/Source/include \
+External/FreeRTOS/FreeRTOSV8.2.3/FreeRTOS/Source/portable/GCC/ATMega328-2560
 
 ## FreeRTOS source file here
-FreeRTOS_SRC = External/FreeRTOS/FreeRTOSV8.2.0/FreeRTOS/Source
-FreeRTOS_PORT_SRC = External/FreeRTOS/FreeRTOSV8.2.0/FreeRTOS/Source/portable/GCC/ATMega328-2560
+FreeRTOS_SRC = External/FreeRTOS/FreeRTOSV8.2.3/FreeRTOS/Source
+FreeRTOS_PORT_SRC = External/FreeRTOS/FreeRTOSV8.2.3/FreeRTOS/Source/portable/GCC/ATMega328-2560
 
 # List any extra directories to look for libraries here.
 EXTRALIBDIRS =
