@@ -1,10 +1,8 @@
 #----------------------------------------------------------------------------
-# On command line:
-#
-# make all, clean, program, debug
-#
-# Requirements:  brew install - avr-binutils, avr-gcc, avr-libc, avrdude
-#----------------------------------------------------------------------------
+# Usage: make - all, clean, program, debug
+# Tools:  avr-binutils, avr-gcc, avr-libc, avr-gdb, avrdude
+#---------------------------------------------------------------------------
+
 # MCU (e.g. atmega2560)
 MCU = $(MODEL)
 
@@ -46,7 +44,7 @@ FreeRTOS_SRC = External/FreeRTOS/FreeRTOSV8.2.0/FreeRTOS/Source
 FreeRTOS_PORT_SRC = External/FreeRTOS/FreeRTOSV8.2.0/FreeRTOS/Source/portable/GCC/ATMega328-2560
 
 # List any extra directories to look for libraries here.
-EXTRALIBDIRS = 
+EXTRALIBDIRS =
 
 # List C source files here
 #SOURCES := $(wildcard $(ArduinoCore_SRC)/*.c)
@@ -90,7 +88,7 @@ Driver/source/Motor.cpp
 #ifneq ($(TEST), TEST=0)
 #	CSRC += \
 #	Test/Service/source/ThreadAbstract_Test.cpp \
-#	Test/Service/source/ThreadPool_Test.cpp 
+#	Test/Service/source/ThreadPool_Test.cpp
 #endif
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -104,15 +102,12 @@ else
 	Application/source/Run.cpp
 endif
 
-
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
 
 # List Assembler source files here (e.g. *.s)
 ASRC =
 
-# Optimization level, can be [0, 1, 2, 3, s=size]. 
+# Optimization level, can be [0, 1, 2, 3, s=size].
 OPT = s
 
 # Debugging format
@@ -155,7 +150,7 @@ CPPFLAGS += -fno-exceptions
 #CPPFLAGS += -fexceptions
 CPPFLAGS += -Wall
 CPPFLAGS += -Wundef
-CPPFLAGS += -ffunction-sections 
+CPPFLAGS += -ffunction-sections
 CPPFLAGS += -fdata-sections
 CPPFLAGS += -Wunreachable-code
 CPPFLAGS += -Wsign-compare
@@ -206,11 +201,11 @@ LDFLAGS += $(PRINTF_LIB) $(SCANF_LIB) $(MATH_LIB)
 # avrdude -F -V -c arduino -p ATMEGA328P -P /dev/ttyACM0 -b 115200 -U flash:w:led.hex
 
 # Programming hardware
-# Type: avrdude -c ? 
+# Type: avrdude -c ?
 #AVRDUDE_PROGRAMMER = stk500v2
 AVRDUDE_PROGRAMMER = arduino
 
-# /dev/tty.usbmodem1421 
+# /dev/tty.usbmodem1421
 AVRDUDE_PORT = $(PROGRAM_PORT)
 
 AVRDUDE_WRITE_FLASH = -U flash:w:$(TARGET).hex
@@ -243,7 +238,7 @@ JTAG_DEV = /dev/com1
 DEBUG_PORT = 4242
 
 # Debugging host used to communicate between GDB / avarice / simulavr, normally
-#     just set to localhost unless doing some sort of crazy debugging when 
+#     just set to localhost unless doing some sort of crazy debugging when
 #     avarice is running on a different computer.
 DEBUG_HOST = localhost
 
@@ -270,7 +265,7 @@ WINSHELL = cmd
 MSG_ERRORS_NONE = Errors: none
 MSG_BEGIN = -------- begin --------
 MSG_END = --------  end  --------
-MSG_SIZE_BEFORE = Size before: 
+MSG_SIZE_BEFORE = Size before:
 MSG_SIZE_AFTER = Size after:
 MSG_COFF = Converting to AVR COFF:
 MSG_EXTENDED_COFF = Converting to AVR Extended COFF:
@@ -286,10 +281,10 @@ MSG_CLEANING = Cleaning project:
 MSG_CREATING_LIBRARY = Creating library:
 
 # Define all object files.
-OBJ = $(CSRC:%.c=$(OBJDIR)/%.o) $(CPPSRC:%.cpp=$(OBJDIR)/%.o) $(ASRC:%.S=$(OBJDIR)/%.o) 
+OBJ = $(CSRC:%.c=$(OBJDIR)/%.o) $(CPPSRC:%.cpp=$(OBJDIR)/%.o) $(ASRC:%.S=$(OBJDIR)/%.o)
 
 # Define all listing files.
-LST = $(CSRC:%.c=$(OBJDIR)/%.lst) $(CPPSRC:%.cpp=$(OBJDIR)/%.lst) $(ASRC:%.S=$(OBJDIR)/%.lst) 
+LST = $(CSRC:%.c=$(OBJDIR)/%.lst) $(CPPSRC:%.cpp=$(OBJDIR)/%.lst) $(ASRC:%.S=$(OBJDIR)/%.lst)
 
 # Compiler flags to generate dependency files.
 GENDEPFLAGS = -MMD -MP -MF .dep/$(@F).d
@@ -340,7 +335,7 @@ sizeafter:
 	2>/dev/null; echo; fi
 
 # Display compiler version information.
-gccversion: 
+gccversion:
 	@$(CC) --version
 
 # Program the device.
@@ -348,9 +343,9 @@ program: $(TARGET).hex $(TARGET).eep
 	$(AVRDUDE) $(AVRDUDE_FLAGS) $(AVRDUDE_WRITE_FLASH) $(AVRDUDE_WRITE_EEPROM)
 
 # Generate avr-gdb config/init file which does the following:
-#     define the reset signal, load the target file, connect to target, and set 
+#     define the reset signal, load the target file, connect to target, and set
 #     a breakpoint at main().
-gdb-config: 
+gdb-config:
 	@$(REMOVE) $(GDBINIT_FILE)
 	@echo define reset >> $(GDBINIT_FILE)
 	@echo SIGNAL SIGHUP >> $(GDBINIT_FILE)
@@ -435,13 +430,13 @@ extcoff: $(TARGET).elf
 $(OBJDIR)/%.o : %.c
 	@echo
 	@echo $(MSG_COMPILING) $<
-	$(CC) -c $(ALL_CFLAGS) $< -o $@ 
+	$(CC) -c $(ALL_CFLAGS) $< -o $@
 
 # Compile: create object files from C++ source files.
 $(OBJDIR)/%.o : %.cpp
 	@echo
 	@echo $(MSG_COMPILING_CPP) $<
-	$(CC) -c $(ALL_CPPFLAGS) $< -o $@ 
+	$(CC) -c $(ALL_CPPFLAGS) $< -o $@
 
 # Compile: create assembler files from C source files.
 %.s : %.c
@@ -459,7 +454,7 @@ $(OBJDIR)/%.o : %.S
 
 # Create preprocessed source for use in sending a bug report.
 %.i : %.c
-	$(CC) -E -mmcu=$(MCU) -I. $(CFLAGS) $< -o $@ 
+	$(CC) -E -mmcu=$(MCU) -I. $(CFLAGS) $< -o $@
 
 # Target: clean project.
 clean: begin clean_list end
