@@ -101,7 +101,7 @@ Currently board independent.
     - Note: 4 pin connect Trig & Echo pins together to make 3 pin
   - 180 Degree Servo (model: Parallax #900-00005)
 
-## Credits
+## Acknowledgement
 
 [FreeRTOS](http://www.freertos.org/)
   
@@ -109,6 +109,10 @@ Currently board independent.
   
 [Arduino](http://arduino.cc/)
   
+## Thanks
+
+[homebrew-avr](https://github.com/osx-cross/homebrew-avr/)
+
 ## License
 
 LGPLv3
