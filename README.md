@@ -16,6 +16,8 @@ Currently working under OS X, but should easily work under Linux as well...
 ### Ubuntu
   - Avrdude
     - apt-get install avrdude
+    - apt-get install gcc-avr binutils-avr avr-libc
+    - apt-get install gdb-avr
 
 ## Usage
 
