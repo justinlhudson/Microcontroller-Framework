@@ -7,11 +7,11 @@ The goal is to create a template project to create applications independent of t
 Currently working under OS X, but should easily work under Linux as well...
 
 ### OS X
-  - [homebrew-avr](https://github.com/larsimmisch/homebrew-avr)
-    - brew tap larsimmisch/avr
-      - brew install **avrdude --with-usb**
+  - [homebrew-avr](https://github.com/osx-cross/homebrew-avr/)
+    - brew tap osx-cross/avr
       - brew install avr-libc
         - **avr-libc, avr-binutils, avr-gcc**
+      - brew install **avrdude --with-usb**
 
 ### Ubuntu
   - Avrdude
