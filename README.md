@@ -84,7 +84,7 @@ Currently only one, as others were deprecated.
 
 Important: With threading minimum SRAM is 4kb!
 
-  - **ATmega2560**
+  - **[ATmega2560](http://www.atmel.com/devices/atmega2560.aspx)**
     - Timer 1: Taken for [FreeRTOS](http://www.freertos.org/) operation.
     - If Instantiated:
       - Timer 2: Selected timer for controlling 2 PWM motors.
