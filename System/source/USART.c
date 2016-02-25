@@ -109,7 +109,7 @@ int8 USART_Receive(uint8 usart)
   return result;
 }
 
-ISR(USART_RX_vect)
+ISR(USART0_RX_vect)
 {
   CRITICAL_SECTION_ENTER();
   {

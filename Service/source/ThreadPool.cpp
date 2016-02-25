@@ -126,7 +126,10 @@ void ThreadPool::Process()
 
       if(count > 0)
       {
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wmaybe-uninitialized"
         item.Function(item.Args);  //run function until completed 
+#pragma GCC diagnostic pop
 
         _lock.SectionEnter();
         {

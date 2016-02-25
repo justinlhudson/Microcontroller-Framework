@@ -107,7 +107,11 @@ void Trace::Execute()
   while(_usart->IsAvailable())
   {
     int8 result = _usart->Receive();
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wint-to-pointer-cast"
     Notify((void*)result);
+#pragma GCC diagnostic pop
+
   }
 
   Delay(25);

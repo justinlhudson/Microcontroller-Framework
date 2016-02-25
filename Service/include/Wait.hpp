@@ -78,7 +78,7 @@ namespace Service
       Trace *_trace;
       Semaphore _lock;
 
-      bool Create(uint8);
+      void Create(uint8);
 
   };
 };

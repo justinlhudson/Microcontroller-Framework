@@ -43,10 +43,8 @@ void Wait::Wakeup(uint8 tag)
   _map[tag].flag = true;
 }
 
-bool Wait::Create(uint8 tag)
+void Wait::Create(uint8 tag)
 {
-  bool status = true;
-
   Wait_t wait;
 
   wait.flag = false;

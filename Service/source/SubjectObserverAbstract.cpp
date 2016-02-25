@@ -13,7 +13,6 @@ SubjectAbstract::SubjectAbstract()
 
 SubjectAbstract::~SubjectAbstract()
 { 
-  delete [] _observers;
 }
 
 bool SubjectAbstract::Attach(ObserverAbstract *observer)
