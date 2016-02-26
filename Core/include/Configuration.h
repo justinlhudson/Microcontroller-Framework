@@ -13,8 +13,6 @@
 
 //Note: Timer1 (16-bit) is used for FreeRTOS
 
-#define LABEL                                             (NAME)
-
 #define BOARD_ARDUINO_UNO                                 1
 #define BOARD_TYPE                                        (BOARD)
 

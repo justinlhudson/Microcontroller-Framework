@@ -65,13 +65,13 @@ intsys main(void)
 
   // Note:  Used for auto search correct port for USB coms.
   // App. simply looks for label value to come through...
-  Trace::Instance()->Log(Trace::Operation, "%s \n\r", STRING(LABEL));
+  Trace::Instance()->Log(Trace::Operation, "%s \n\r", "Initialize...");
 
   ShowSystemUsage();
 
   Delay(250);  // if connecting for tracing give some time to see traces
 
-  Trace::Instance()->Log(Trace::Info,"\n\rWelcome...\n\r");
+  Trace::Instance()->Log(Trace::Info,"\n\rReady...\n\r");
 
   THREAD_SCHEDULER(); //is a locking function 
 
@@ -82,7 +82,7 @@ intsys main(void)
   }
   */
 
-  Trace::Instance()->Log(Trace::Info,"\n\rGood Night!\n\r");
+  Trace::Instance()->Log(Trace::Info,"\n\rDone!\n\r");
 
   THREAD_CLOSE(monitor);
 #if TEST > 0

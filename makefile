@@ -17,14 +17,14 @@ ifndef NAME
 	NAME = development
 endif
 
-# Define which test number to run
-DEFS = -DF_CPU=$(F_CPU)UL -DTEST=$(TEST)
+# Passing arguments to source
+DEFS = -DF_CPU=$(F_CPU)UL -DTEST=$(TEST) -DNAME=$(NAME)
 
 # Output format. (can be srec, ihex, binary)
 FORMAT = ihex
 
 # Target file name (without extension).
-TARGET = Core
+TARGET = $(NAME)
 
 # Object files directory (. current directory)
 OBJDIR = .
@@ -67,7 +67,7 @@ System/source/WDT.c
 
 # List C++ source files here
 CPPSRC = \
-Core/source/$(TARGET).cpp \
+Core/source/Core.cpp \
 Service/source/Trace.cpp \
 Service/source/Semaphore.cpp \
 Service/source/Wait.cpp \
@@ -198,20 +198,23 @@ LDFLAGS += $(PRINTF_LIB) $(SCANF_LIB) $(MATH_LIB)
 
 #---------------- Programming Options (avrdude) ----------------
 
-# avrdude -F -V -c arduino -p ATMEGA328P -P /dev/ttyACM0 -b 115200 -U flash:w:led.hex
+#avrdude -F -D -c stk500v2 -p m2560 -b 115200 -P /dev/tty.usbmodem1411 -U flash:w:Core.hex
+#avrdude -F -c arduino-p m328 -P /dev/tty.usbmodem1421 -U flash:w:Core.hex
+
+#screen /dev/tty.usbmodem1421 115200
 
 # Programming hardware
 # Type: avrdude -c ?
-#AVRDUDE_PROGRAMMER = stk500v2
-AVRDUDE_PROGRAMMER = arduino
+AVRDUDE_PROGRAMMER = stk500v2
+#AVRDUDE_PROGRAMMER = arduino
 
 # /dev/tty.usbmodem1421
 AVRDUDE_PORT = $(PROGRAM_PORT)
 
 AVRDUDE_WRITE_FLASH = -U flash:w:$(TARGET).hex
-#AVRDUDE_WRITE_EEPROM = -U eeprom:w:$(TARGET).eep
+AVRDUDE_WRITE_EEPROM = -U eeprom:w:$(TARGET).eep
 
-AVRDUDE_FLAGS = -F -c $(AVRDUDE_PROGRAMMER) -p $(MCU) -P $(AVRDUDE_PORT)
+AVRDUDE_FLAGS = -F -D -c $(AVRDUDE_PROGRAMMER) -p $(MCU) -P $(AVRDUDE_PORT)
 AVRDUDE_FLAGS += $(AVRDUDE_NO_VERIFY)
 AVRDUDE_FLAGS += $(AVRDUDE_VERBOSE)
 AVRDUDE_FLAGS += $(AVRDUDE_ERASE_COUNTER)
