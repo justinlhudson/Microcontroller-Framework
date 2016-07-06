@@ -1,7 +1,10 @@
 #----------------------------------------------------------------------------
 # Usage: make - all, clean, program, debug
 # Tools:  avr-binutils, avr-gcc, avr-libc, avr-gdb, avrdude
+# Note:  avr header OSX: '/Users/jlh/Documents/Arduino/libraries/'
 #---------------------------------------------------------------------------
+
+include makefile.common
 
 # MCU (e.g. atmega2560)
 MCU = $(MODEL)
@@ -80,16 +83,38 @@ Service/source/WDT.cpp \
 Component/source/RelativeTimeClock.cpp \
 Core/source/Application.cpp
 
-CPPSRC += \
-Driver/source/UltrasonicSensor.cpp \
-Driver/source/Servo.cpp \
-Driver/source/Motor.cpp
-
 #ifneq ($(TEST), TEST=0)
 #	CSRC += \
 #	Test/Service/source/ThreadAbstract_Test.cpp \
 #	Test/Service/source/ThreadPool_Test.cpp
 #endif
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Arduino speifics for external applications requirments.
+
+ifndef ARDUINO_DIR
+    AUTO_ARDUINO_DIR := $(firstword \
+        $(call dir_if_exists,/usr/share/arduino) \
+        $(call dir_if_exists,/Applications/Arduino.app/Contents/Resources/Java) \
+        $(call dir_if_exists,/Applications/Arduino.app/Contents/Java) )
+    ifdef AUTO_ARDUINO_DIR
+       ARDUINO_DIR = $(AUTO_ARDUINO_DIR)
+       $(call show_config_variable,ARDUINO_DIR,[AUTODETECTED])
+    else
+        echo $(error "ARDUINO_DIR is not defined")
+    endif
+else
+    $(call show_config_variable,ARDUINO_DIR,[USER])
+endif
+
+#EXTRAINCDIRS += \
+#$(ARDUINO_DIR)/hardware/arduino/avr/cores/arduino \
+#$(ARDUINO_DIR)/hardware/arduino/avr/variants/mega
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+#*** Extra features (non-core) ***#
+include makefile.extra
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
