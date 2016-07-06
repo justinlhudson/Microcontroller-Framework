@@ -10,18 +10,6 @@ static Trace _singleton;
 
 const uint32 Trace::MaxLength = USART_BUFFER_LENGTH;
 
-/*
-#if BOARD_TYPE == BOARD_ARDUINO_UNO
-  Trace::Trace(uint32 baud) : SubjectAbstract(), ThreadAbstract(),
-    _level(Trace::None), _display(true)
-  {
-    Serial.begin((long)baud);
-    while (!Serial) { ; } // wait for serial port to connect.
-
-    Activate();
-  }
-#else
-*/
 Trace::Trace(uint8 usart, uint32 baud) : SubjectAbstract(), ThreadAbstract(),
 _level(Trace::None), _display(true)
 {

@@ -24,9 +24,10 @@ Motor::Motor(uint8 timer)
       // Fast PWM, Phase Correct, clear
       TCCR2A = (1<<COM2A1)|(0<<COM2A0)|(1<<COM2B1)|(0<<COM2B0)|(0<<WGM21)|(1<<WGM20);
       TCCR2B = (0<<CS22)|(1<<CS21)|(0<<CS20)|(0<<WGM22);  // prescale 8
-  
+#if defined(__AVR_ATmega2560__)
       PORT_SET(DDRB, (1<<PB4)); // make pin output
       PORT_SET(DDRH, (1<<PH6));
+#endif
     }
   }
   CRITICAL_SECTION_EXIT();

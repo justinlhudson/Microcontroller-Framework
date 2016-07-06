@@ -34,11 +34,11 @@ void USART_Initialize(uint8 usart, uint32 baud)
     {
       UBRR0 = 0;
 
-      #if CPU_FREQUENCY_HZ > 115200
+#if CPU_FREQUENCY > 115200
         UCSR0A = (1<<U2X0);  // enable 2x speed change
-      #else
+#else
         UCSR0A = (0<<U2X0);
-      #endif
+#endif
       //Enable Tx and Rx, and interrupt on Rx
       UCSR0B = (1<<RXEN0)|(1<<TXEN0)|(1<<RXCIE0)|(0<<UDRIE0);
       //set baud

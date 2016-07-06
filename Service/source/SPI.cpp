@@ -8,6 +8,25 @@ extern "C"
 
 SPI::SPI(uint32 clock, uint8 mode, BitOrder bitOrder)
 {
+  switch (mode)
+  {
+    case 0:
+      mode = SPI_MODE0;
+      break;
+    case 1:
+      mode = SPI_MODE1;
+      break;
+    case 2:
+      mode = SPI_MODE2;
+      break;
+    case 3:
+      mode = SPI_MODE3;
+      break;
+    default:
+      mode = SPI_MODE0;
+      break;
+  }
+
   SPI_Initialize(clock, mode, bitOrder);
 }
 

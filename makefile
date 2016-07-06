@@ -24,7 +24,7 @@ endif
 
 # Passing arguments to source
 DEFS = -DF_CPU=$(F_CPU)UL
-DEFS += -DFREQUENCY=$(FREQUENCY)UL -DMODEL=$(MODEL) -DBOARD=$(BOARD) -DTEST=$(TEST) -DNAME=$(NAME)
+DEFS += -DFREQUENCY=$(FREQUENCY)UL -DMODEL=$(MODEL) -DBOARD=$(BOARD) -DNAME=$(NAME) -DTEST=$(TEST)
 
 # Board global, mimic arduino
 ifeq ($(MCU),atmega2560)

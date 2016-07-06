@@ -21,6 +21,8 @@ void SPI_Initialize(uint32 clock, uint8 mode, uint8 bitOrder)
     uint8 spsr;
     uint8 mask=0;
 
+    uint8 sreg = SREG;
+
     // select clock closest to requested rate, see char in datasheet
     if (clock >= CPU_FREQUENCY_HZ / 2)
       mask = (1<<SPI2X)|(0<<SPR1|0<<SPR0);
@@ -66,6 +68,8 @@ void SPI_Initialize(uint32 clock, uint8 mode, uint8 bitOrder)
       SPSR=spsr;
     }
     CRITICAL_SECTION_EXIT();
+
+    SREG = sreg;
   }
   _initilized++;
 }
@@ -80,11 +84,15 @@ void SPI_DeInitialize(void)
   // If there are no more references disable SPI
   if (!_initilized)
   {
+    uint8 sreg = SREG;
+
     CRITICAL_SECTION_ENTER();
     {
       PORT_CLR(SPCR, (1<<SPE));  // low, release/disable SPI
     }
     CRITICAL_SECTION_EXIT();
+
+    SREG=sreg;
   }
 }
 

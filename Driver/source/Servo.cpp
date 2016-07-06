@@ -36,8 +36,9 @@ Servo::Servo(uint8 timer)
       TCCR3A = (1<<COM3A1)|(0<<COM3A0)|(1<<COM3B1)|(0<<COM3B0)|(1<<WGM31)|(0<<WGM30);
       TCCR3B = (0<<CS32)|(1<<CS31)|(0<<CS30)|(1<<WGM33)|(0<<WGM32);  // prescale 8
       ICR3 = 10000; // formula from data sheet...
-  
+#if defined(__AVR_ATmega2560__)
       DDRB  |= (1<<PB6)|(1<<PB7); // make pins output, same for most AVR chips
+#endif
     }
   }
   CRITICAL_SECTION_EXIT();
