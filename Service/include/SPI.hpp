@@ -26,19 +26,21 @@ namespace Service
   class SPI
   {
     public:
+      /// <summary>
+      /// Defines bitorder configuration.
+      /// </summary>
+      enum BitOrder
+      {
+         LSBFIRST=0, MSBFIRST=1
+      };
 
       /// <summary>
       /// Constructor
       /// </summary>
-      SPI(void);
-
-      /// <summary>
-      /// Constructor
-      /// </summary>
-      /// <param name="usart">number of usart register (e.q. 0,1,...)</param>
-      /// <param name="baud">rate</param>
-      /// <remarks>8 bits, 1 stop, no parity</remarks>
-      SPI(uint8, uint32);
+      /// <param name="clock">matches closest</param>
+      /// <param name="mode">0,1,2,3</param>
+      /// <param name="bitOrder">LSB, MSB</param>
+      SPI(uint32 clock=4000000, uint8 mode=0, BitOrder bitorder=SPI::MSBFIRST);
 
       /// <summary>
       /// Destructor
@@ -46,52 +48,21 @@ namespace Service
       ~SPI(void);
 
       /// <summary>
-      /// Send
+      /// Transfer
       /// </summary>
-      /// <param name="value">single character</param>
-      void Send(int8);
+      /// <param name="value">in</param>
+      /// <returns>out</param>
+      uint8 Transfer(uint8);
 
       /// <summary>
-      /// Send
+      /// Transfer
       /// </summary>
-      /// <param name="value">character string</param>
-      /// <param name="length">character string length</param>
-      void Send(const int8*, uintsys);
-
-      /// <summary>
-      /// Send
-      /// </summary>
-      /// <param name="value">single u/int32</param>
-      void Send(int32);
-
-      /// <summary>
-      /// Send
-      /// </summary>
-      /// <param name="value">single float</param>
-      /// <remarks>three decimal place accuracy</remarks>
-      void Send(float);
-
-      /// <summary>
-      /// Input ready/waiting
-      /// </summary>
-      /// <returns>if character is waiting sent to USART</returns>
-      bool IsAvailable(void);
-
-      /// <summary>
-      /// Receive
-      /// </summary>
-      /// <returns>single character</returns>
-      /// <remarks>Hint: loop through with "IsAvalable" until empty</remarks>
-      int8 Receive(void);
+      /// <param name="buffer">in/out arrary</param>
+      /// <param name="count">array count</param>
+      void Transfer(uint8*, uint16);
 
     private:
 
-      static uint8 _flag;
-
-      int8 _spi;
-
-      void Initialize(uint32);
-      void Reset(void);
   };
 };
 #endif

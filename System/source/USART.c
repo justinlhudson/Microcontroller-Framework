@@ -9,20 +9,20 @@
 
 #include "Core/include/Configuration.h"
 
-#define UART_BAUD_SELECT(b)     ( ((CPU_CLOCK_HZ)/((b)*16)) -1)
+#define UART_BAUD_SELECT(b)     ( ((CPU_FREQUENCY_HZ)/((b)*16)) -1)
 // Used with async operation ONLY!
-#define UART_BAUD_SELECT_2X(b)     ( (((CPU_CLOCK_HZ)/((b)*8)) -1)|0x8000)
+#define UART_BAUD_SELECT_2X(b)     ( (((CPU_FREQUENCY_HZ)/((b)*8)) -1)|0x8000)
 
 struct USART_t
 {
   int8 buffer[USART_BUFFER_LENGTH];
   uint8 count;
   uint8 offset;
-} USART[NUMBER_USARTS];
+} USART[USARTS];
 
 void USART_Initialize(uint8 usart, uint32 baud)
 {
-  #if CPU_CLOCK_HZ > 115200
+  #if CPU_FREQUENCY_HZ > 115200
     uint16 brr = UART_BAUD_SELECT_2X(baud);
   #else
     uint16 brr = UART_BAUD_SELECT(baud);
@@ -34,7 +34,7 @@ void USART_Initialize(uint8 usart, uint32 baud)
     {
       UBRR0 = 0;
 
-      #if CPU_CLOCK_HZ > 115200
+      #if CPU_FREQUENCY_HZ > 115200
         UCSR0A = (1<<U2X0);  // enable 2x speed change
       #else
         UCSR0A = (0<<U2X0);
@@ -64,9 +64,9 @@ void USART_Reset(uint8 usart)
   {
     do
     {
-      int8 flushReg = 0;
-      flushReg = UDR0;  //clear by reading
-      (void)flushReg;
+      int8 flush = 0;
+      flush = UDR0;  //clear by reading
+      (void)flush;
     }while((UCSR0A & (1<<RXC0)));  //go until register empty, or timeout
   }
 }

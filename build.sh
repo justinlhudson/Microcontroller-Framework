@@ -12,5 +12,5 @@ if [ ! -z "$1" ] && [[ "$1" == "-p" ]]; then
 elif [ ! -z "$1" ] && [[ "$1" == "-s" ]]; then
   screen $_port $_baud
 else
-  make clean && make MODEL=atmega2560 CLOCK=16000000 NAME=$_name
+  make clean && make BOARD=arduino_mega MODEL=atmega2560 FREQUENCY=16000000 NAME=$_name
 fi

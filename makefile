@@ -1,27 +1,35 @@
 #----------------------------------------------------------------------------
 # Usage: make - all, clean, program, debug
 # Tools:  avr-binutils, avr-gcc, avr-libc, avr-gdb, avrdude
-# Note:  avr header OSX: '/Users/jlh/Documents/Arduino/libraries/'
 #---------------------------------------------------------------------------
 
 include makefile.common
 
+# Variables
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # MCU (e.g. atmega2560)
 MCU = $(MODEL)
-
 # Processor frequency (e.g. 16000000)
-F_CPU = $(CLOCK)
+F_CPU = $(FREQUENCY)
 
+# Test(s) to run
 ifndef TEST
 	TEST = 0
 endif
-
+# Display purposes ONLY
 ifndef NAME
 	NAME = development
 endif
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 # Passing arguments to source
-DEFS = -DF_CPU=$(F_CPU)UL -DTEST=$(TEST) -DNAME=$(NAME)
+DEFS = -DF_CPU=$(F_CPU)UL
+DEFS += -DFREQUENCY=$(FREQUENCY)UL -DMODEL=$(MODEL) -DBOARD=$(BOARD) -DTEST=$(TEST) -DNAME=$(NAME)
+
+# Board global, mimic arduino
+ifeq ($(MCU),atmega2560)
+DEFS += -D__AVR_ATmega2560__
+endif
 
 # Output format. (can be srec, ihex, binary)
 FORMAT = ihex
@@ -61,8 +69,9 @@ $(FreeRTOS_PORT_SRC)/port.c
 #$(FreeRTOS_SRC)/croutine.c
 
 CSRC += \
+System/source/WDT.c \
 System/source/USART.c \
-System/source/WDT.c
+System/source/SPI.c
 
 #ifneq ($(TEST), TEST=0)
 #	CSRC += \
@@ -77,9 +86,10 @@ Service/source/Wait.cpp \
 Service/source/ThreadAbstract.cpp \
 Service/source/SubjectObserverAbstract.cpp \
 Service/source/EEPROM.cpp \
-Service/source/USART.cpp \
 Service/source/ThreadPool.cpp \
 Service/source/WDT.cpp \
+Service/source/USART.cpp \
+Service/source/SPI.cpp \
 Component/source/RelativeTimeClock.cpp \
 Core/source/Application.cpp
 

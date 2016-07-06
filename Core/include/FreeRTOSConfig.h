@@ -24,7 +24,7 @@
 // "void vApplicationTickHook( void );"
 #define configUSE_TICK_HOOK			0
 
-#define configCPU_CLOCK_HZ			( ( unsigned long ) F_CPU)
+#define configCPU_CLOCK_HZ			( ( unsigned long ) CPU_FREQUENCY_HZ)
 
 // Rate at which kernel processes, faster rate means kernel takes more CPU time.
 // Muiltiple gives 1% of total CPU time to kernel

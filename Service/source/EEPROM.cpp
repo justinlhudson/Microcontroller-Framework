@@ -1,5 +1,6 @@
 #include <avr/eeprom.h>
 
+// Note: lazy and used lib already included
 #include "../include/EEPROM.hpp"
 using namespace Service;
 

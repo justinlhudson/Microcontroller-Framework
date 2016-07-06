@@ -6,21 +6,7 @@ extern "C"
   #include "System/include/USART.h"
 }
 
-uint8 USART::_flag = 0x00;  //so not to start usart more then once, init static variable
-
-USART::USART(void)
-{
-  uint8 usart = 0;
-
-  //keep track if usart alrady taken for usage
-  if(!(_flag & (0x01 << usart))) //not already defined
-  {
-    _flag |= (0x01 << usart);
-    _usart = usart;
-      
-    Initialize(9600);
-  }
-}
+uint8 USART::_flag = 0x00;  //so not to start more then once, init static variable
 
 USART::USART(uint8 usart, uint32 baud)
 {

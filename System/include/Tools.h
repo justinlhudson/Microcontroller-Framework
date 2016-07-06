@@ -20,7 +20,7 @@
 
 #include "Types.h"
 
-//makes anything into a string
+// makes anything into a string
 #define STRING(s)                      #s
 
 #define STRINGIFY(x) #x
@@ -71,7 +71,7 @@ inline void Swap(void *v1, void *v2, uint32 size)
 /*
   Used as Generic Copy of memory
   Note: Be careful if copying a struct with pointers, 
-        will not copy where the pointer points.
+        will not copy where the pointer points, but the value.
  */
 inline void CopyDeep(void *destination, void *source, uint32 size)
 {
@@ -92,7 +92,7 @@ extern "C"
     uint32    available;
   } memory_usage_t;
 
-  //NOTE: The dynamic memory management portion of the C runtime needs the
+  // Note: The dynamic memory management portion of the C runtime needs the
   //      2 additional bytes for tracking the allocated memory.
   inline void MemoryUsage(memory_usage_t *usage) 
   {

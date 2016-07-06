@@ -26,19 +26,13 @@ namespace Service
   class USART
   {
     public:
-
       /// <summary>
       /// Constructor
       /// </summary>
-      USART(void);
-
-      /// <summary>
-      /// Constructor
-      /// </summary>
-      /// <param name="usart">number of usart register (e.q. 0,1,...)</param>
+      /// <param name="usart">number of usart register (e.q. 0,1,...) being used</param>
       /// <param name="baud">rate</param>
       /// <remarks>8 bits, 1 stop, no parity</remarks>
-      USART(uint8, uint32);
+      USART(uint8 usart=0, uint32 baud=9600);
 
       /// <summary>
       /// Destructor
