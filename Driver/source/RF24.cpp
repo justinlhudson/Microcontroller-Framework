@@ -50,10 +50,20 @@ RF24::~RF24(void)
   delete _spi;
 }
 
+uint8 RF24::GetPayloadSize(void)
+{
+  return PAYLOAD_SIZE;
+}
+
 void RF24::Setup(void)
 {
-
+  //begin
 }
+
+// start listenting, stop listening, read payload
+// write payload
+// power up, power down
+
 
 void RF24::ClearBuffers(void)
 {
@@ -69,6 +79,42 @@ void RF24::SetChannel(uint8 channel)
   WriteRegister(RF_CHANNEL, channel);
 }
 
+uint8 RF24::WritePayload(const uint8* buffer, uint8 length, const uint8 operation)
+{
+  uint8 status;
+  length = length < GetPayloadSize() ? length : GetPayloadSize();
+  // for padding if data length less then payload
+  uint8 blank_length = GetPayloadSize() - length;
+
+  StartTransacton();
+  status = _spi->Transfer( operation );
+  while ( length-- )
+    _spi->Transfer(*buffer++);
+  while ( blank_length-- )
+    _spi->Transfer(PADDING);
+  StopTransacton();
+
+  return status;
+}
+
+uint8 RF24::ReadPayload(uint8* buffer, uint8 length)
+{
+  uint8 status;
+  length = length < GetPayloadSize() ? length : GetPayloadSize();
+  // for padding if data length less then payload
+  uint8 blank_length = GetPayloadSize() - length;
+
+  StartTransacton();
+  status = _spi->Transfer( READ_RX_PAYLOAD );
+  while ( length-- )
+    *buffer++ = _spi->Transfer(DONTCARE);
+  while ( blank_length-- )
+    _spi->Transfer(DONTCARE);
+  StopTransacton();
+
+  return status;
+}
+
 uint8 RF24::ReadRegister(uint8 location, uint8* buffer, uint8 length)
 {
   uint8 status;
@@ -76,7 +122,7 @@ uint8 RF24::ReadRegister(uint8 location, uint8* buffer, uint8 length)
   StartTransacton();
   status = _spi->Transfer( READ_REGISTER | ( REGISTER_MASK & location ) );
   while ( length-- )
-    *buffer++ = _spi->Transfer(0xFF);
+    *buffer++ = _spi->Transfer(DONTCARE);
   StopTransacton();
 
   return status;

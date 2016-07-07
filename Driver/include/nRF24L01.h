@@ -2,6 +2,9 @@
 #define MAX_CHANNEL       125
 #define PAYLOAD_SIZE       32
 
+#define READ_RX_PAYLOAD   0x61
+#define WRITE_TX_PAYLOAD  0xA0
+
 #define READ_REGISTER     0x00
 #define WRITE_REGISTER    0x20
 #define REGISTER_MASK     0x1F
@@ -10,8 +13,8 @@
 
 #define RF_CHANNEL        0x05
 
-
-
+#define DONTCARE          0xFF
+#define PADDING           0x00
 
 
 /* Memory Map */

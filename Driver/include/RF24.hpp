@@ -47,9 +47,9 @@ namespace Driver
     protected:
       
     private:
-      SPI *_spi;
-      //uint8 _rxBuffer[RF24_BUFFER_LENGTH];
-      //uint8 _txBuffer[RF24_BUFFER_LENGTH];
+      SPI* _spi;
+      uint8* _rxBuffer;
+      uint8* _txBuffer;
 
       uint8 _enablePin;  // ce
       uint8 _selectPin;  // csn
@@ -65,6 +65,9 @@ namespace Driver
       inline void StartTransacton(void) { SelectPin(LOW); EnablePin(HIGH); DELAY_MS(5); }
       inline void StopTransacton(void) { EnablePin(LOW); SelectPin(HIGH); }
 
+      uint8 WritePayload(const uint8*, uint8, const uint8);
+      uint8 ReadPayload(uint8*, uint8);
+
       uint8 ReadRegister(uint8, uint8*, uint8);
 
       uint8 WriteRegister(uint8, uint8);
@@ -73,6 +76,8 @@ namespace Driver
       // tx & rx
       void ClearBuffers(void);
       void SetChannel(uint8);
+
+      uint8 GetPayloadSize(void);
   };
 };
 #endif
