@@ -57,8 +57,13 @@ uint8 RF24::GetPayloadSize(void)
 
 void RF24::Configure(void)
 {
-  
+  WriteRegister(EN_AA, 0x01);  //enable auto ACK (plus only)
+  WriteRegister(EN_RXADDR, ReadRegister(EN_RXADDR) | (1>>ERX_P0)); // Enable RX on pipe0
+  WriteRegister(SETUP_AW, 0x11);  // 5 byte address
 
+  uint8 setup = ReadRegister(RF_SETUP);
+  setup &= ~( (1<<RF_DR_LOW) | (1<<RF_DR_HIGH) );  // 1Mbps = 00b
+  WriteRegister(RF_SETUP, setup);
 
   /// not done!!!
 }
@@ -66,8 +71,7 @@ void RF24::Configure(void)
 // RX on/off
 void RF24::Listen(bool active)
 {
-  uint8 config;
-  ReadRegister(NRF_CONFIG, &config, 1);
+  uint8 config = ReadRegister(NRF_CONFIG);
 
   // check if already on
   if((config & (1<<PRIM_RX)) != 0)
@@ -89,8 +93,7 @@ void RF24::Listen(bool active)
 
 void RF24::Power(bool active)
 {
-   uint8 config;
-   ReadRegister(NRF_CONFIG, &config, 1);
+   uint8 config = ReadRegister(NRF_CONFIG);
 
    // if not powered up then power up and wait for the radio to initialize
    if ( !(config & (1<<PWR_UP)) )
@@ -113,6 +116,7 @@ void RF24::ClearBuffers(void)
   StopTransacton();
 }
 
+// F0= 2400 + RF_CH [MHz]
 void RF24::SetChannel(uint8 channel)
 {
   if (channel <= MAX_CHANNEL)
@@ -155,6 +159,13 @@ uint8 RF24::ReadPayload(uint8* buffer, uint8 length)
   return status;
 }
 
+uint8 RF24::ReadRegister(uint8 location)
+{
+  uint8 data[5];
+  ReadRegister(location,data,1);
+  return data[0];
+}
+
 uint8 RF24::ReadRegister(uint8 location, uint8* buffer, uint8 length)
 {
   uint8 status;
@@ -170,7 +181,7 @@ uint8 RF24::ReadRegister(uint8 location, uint8* buffer, uint8 length)
 
 uint8 RF24::WriteRegister(uint8 location, uint8 value)
 {
-  unsigned char data[5];
+  uint8 data[5];
   data[0] = value;
 
   return WriteRegister(location, data, 1);

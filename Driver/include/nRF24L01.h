@@ -1,4 +1,4 @@
-
+// addresss
 #define NRF_CONFIG        0x00
 
 #define MAX_CHANNEL       125
@@ -14,12 +14,30 @@
 #define FLUSH_RX          0xE2
 
 #define RF_CHANNEL        0x05
+#define RF_SETUP    0x06
 
+#define EN_AA       0x01
+#define EN_RXADDR   0x02
+
+#define SETUP_AW    0x03
+
+// bits
+#define PRIM_RX           0
+#define PWR_UP            1
+
+#define ERX_P0      0
+
+#define RF_DR_LOW   5
+#define RF_DR_HIGH  3
+#define RF_PWR_LOW  1
+#define RF_PWR_HIGH 2
+
+// values
 #define DONTCARE          0xFF
 #define PADDING           0x00
 
-#define PRIM_RX           0
-#define PWR_UP            1
+
+
 
 /* Memory Map */
 #define NRF_CONFIG      0x00

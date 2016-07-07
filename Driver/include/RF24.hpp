@@ -77,6 +77,7 @@ namespace Driver
       inline void StartTransacton(void) { SelectPin(LOW); EnablePin(HIGH); DELAY_MS(5); }
       inline void StopTransacton(void) { EnablePin(LOW); SelectPin(HIGH); }
 
+      uint8 ReadRegister(uint8);
       uint8 ReadRegister(uint8, uint8*, uint8);
 
       uint8 WriteRegister(uint8, uint8);
