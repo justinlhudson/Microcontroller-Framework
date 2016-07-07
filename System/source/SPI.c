@@ -61,7 +61,7 @@ void SPI_Initialize(uint32 clock, uint8 mode, uint8 bitOrder)
       PORT_CLR(DDRB, (1<<PB3)); // MISO
 
       // gain exclusive access to SPI
-      PORT_SET(PORTB, (1<<PB0));  // SS slow to select chip is connected
+      PORT_SET(PORTB, (1<<PB0));  // SS slow to select connected chip
 #endif
 
       SPCR=spcr;
@@ -105,7 +105,7 @@ uint8 SPI_Transfer_Single(uint8 value)
   return SPDR;
 }
 
-void SPI_Transfer(uint8* buffer, uint16 length)
+void SPI_Transfer_Muiltiple(uint8* buffer, uint16 length)
 {
   if (length == 0) return;
   SPDR = *buffer;

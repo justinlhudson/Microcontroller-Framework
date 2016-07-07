@@ -49,3 +49,16 @@ RF24::~RF24(void)
 {
   delete _spi;
 }
+
+uint8 RF24::WriteRegister(uint8 location, const uint8* buffer, uint8 length)
+{
+  uint8 status;
+
+  StartTransacton();
+  status = _spi->Transfer( WRITE_REGISTER | ( REGISTER_MASK & location ) );
+  while ( length-- )
+    _spi->Transfer(*buffer++);
+  StopTransacton();
+  
+  return status;
+}

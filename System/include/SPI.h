@@ -26,6 +26,6 @@
 void SPI_Initialize(uint32,uint8,uint8);
 void SPI_DeInitialize(void);
 uint8 SPI_Transfer_Single(uint8);
-void SPI_Transfer(uint8*, uint16);
+void SPI_Transfer_Muiltiple(uint8*, uint16);
 
 #endif

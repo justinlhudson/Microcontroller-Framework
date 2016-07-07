@@ -42,5 +42,5 @@ uint8 SPI::Transfer(uint8 value)
 
 void SPI::Transfer(uint8* buffer, uint16 length)
 {
-  SPI_Transfer(buffer, length);
+  SPI_Transfer_Muiltiple(buffer, length);
 }

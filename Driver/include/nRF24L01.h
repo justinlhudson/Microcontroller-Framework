@@ -1,4 +1,8 @@
 
+#define READ_REGISTER     0x00
+#define WRITE_REGISTER    0x20
+#define REGISTER_MASK     0x1F
+
 /* Memory Map */
 #define NRF_CONFIG      0x00
 #define EN_AA       0x01
@@ -76,9 +80,7 @@
 #define EN_DYN_ACK  0
 
 /* Instruction Mnemonics */
-#define R_REGISTER    0x00
-#define W_REGISTER    0x20
-#define REGISTER_MASK 0x1F
+
 #define ACTIVATE      0x50
 #define R_RX_PL_WID   0x60
 #define R_RX_PAYLOAD  0x61
