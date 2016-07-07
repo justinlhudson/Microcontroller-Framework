@@ -1,8 +1,9 @@
 # Drivers
 # application specific
 
-#CPPSRC += \
-#Driver/source/RF24/RF24.cpp
+CPPSRC += \
+Driver/source/RF24.cpp
+
 #Driver/source/UltrasonicSensor.cpp \
 #Driver/source/Servo.cpp \
 #Driver/source/Motor.cpp

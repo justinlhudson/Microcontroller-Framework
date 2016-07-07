@@ -42,10 +42,6 @@ UltrasonicSensor::UltrasonicSensor(int8 port, uint8 pin, int8 tempurature, float
       break;
       _port = &PORTA;
       _ddr = &DDRA;
-    case 'B':
-      _port = &PORTB;
-      _ddr = &DDRB;
-      break;
     case 'C':
       _port = &PORTC;
       _ddr = &DDRC;

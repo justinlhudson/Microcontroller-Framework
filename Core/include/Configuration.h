@@ -31,6 +31,7 @@
 
 // MAX = 256
 #define USART_BUFFER_LENGTH                               128
+#define RF24_BUFFER_LENGTH                                32
 
 //Subject/Observer
 #define MAX_CLASS_OBSERVERS                               16

@@ -20,16 +20,14 @@ extern "C"
   #include "System/include/Types.h"
 }
 
+#include "Core/include/Configuration.h"
+
 #include "Service/include/Trace.hpp"
+#include "Service/include/SPI.hpp"
 using namespace Service;
 
 namespace Driver
 {
-  #include <nRF24L01.h>
-  #include <printf.h>
-  #include <RF24.h>
-  #include <RF24_config.h>
-
   /// <summary>
   /// RF24 Wifi
   /// </summary>
@@ -37,34 +35,24 @@ namespace Driver
   class RF24
   {
     public:
-      
       /// <summary>
-      /// Constructor/Desctructor
+      /// Constructor
       /// </summary>
-      /// <param name="port">A, B, C, or D</param>
-      /// <param name="pin">0-7</param>
-      /// <param name="counter">
-      /// which sytem time counter index to use
-      /// </param> 
-      /// <param name="tempurature">
-      /// ampient tempurature in Celsius (e.g. 22 ~= 70 Fahrenheit)
-      /// </param>
-      /// <param name="error">percent error or fudge factor</param>
-      /// <remarks>
-      /// Note: error (fudge factor) can be used to calibrate with
-      //  known distance, isntead of determining tempurature or what not for
-      /// speed of sound changes.
-      /// </remarks>
-      // ToDo: fix above commments!!!!!
-      RF24(void);
+      /// <param name="port>port for pins/param>
+      /// <param name="enablePin">chip enable pin/param>
+      /// <param name="selectPin">SPI chip select pin</param>
+      RF24(uint8, uint8, uint8);
       ~RF24(void);
 
     protected:
       
     private:
-      
+      SPI *_spi;
+      uint8 _rxBuffer[RF24_BUFFER_LENGTH];
+      uint8 _txBuffer[RF24_BUFFER_LENGTH];
 
-      uint8 _pin;
+      uint8 _enablePin;
+      uint8 _selectPin;
       reg8 *_port;
       reg8 *_ddr;
   };

@@ -78,8 +78,8 @@ System/source/SPI.c
 #endif
 
 # List C++ source files here
-CPPSRC = \
-Core/source/Core.cpp \
+
+CPPSRC += \
 Service/source/Trace.cpp \
 Service/source/Semaphore.cpp \
 Service/source/Wait.cpp \
@@ -91,6 +91,7 @@ Service/source/WDT.cpp \
 Service/source/USART.cpp \
 Service/source/SPI.cpp \
 Component/source/RelativeTimeClock.cpp \
+Core/source/Core.cpp \
 Core/source/Application.cpp
 
 #ifneq ($(TEST), TEST=0)
@@ -125,8 +126,6 @@ endif
 
 #*** Extra features (non-core) ***#
 include makefile.extra
-
-#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 #### Application Code ####
 # Note: for usage from parent makefile (if any)
