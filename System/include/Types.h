@@ -49,7 +49,10 @@ typedef unsigned long long              uint64;
   {
     NO = 0, YES=1,
     OFF = 0, ON=1,
-    LOW = 0, HIGH = 1
+    LOW = 0, HIGH = 1,
+    no = 0, yes=1,
+    off = 0, on=1,
+    low = 0, high = 1
   };
 #else
   //if C, there is no bool
@@ -61,7 +64,10 @@ typedef unsigned long long              uint64;
     false = 0, true = 1,
     NO = 0, YES = 1,
     OFF = 0, ON = 1,
-    LOW = 0, HIGH = 1
+    LOW = 0, HIGH = 1,
+    no = 0, yes=1,
+    off = 0, on=1,
+    low = 0, high = 1
   };
 #endif
 
