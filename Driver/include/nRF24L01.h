@@ -1,4 +1,6 @@
 
+#define NRF_CONFIG        0x00
+
 #define MAX_CHANNEL       125
 #define PAYLOAD_SIZE       32
 
@@ -16,6 +18,8 @@
 #define DONTCARE          0xFF
 #define PADDING           0x00
 
+#define PRIM_RX           0
+#define PWR_UP            1
 
 /* Memory Map */
 #define NRF_CONFIG      0x00
@@ -104,7 +108,7 @@
 #define FLUSH_TX      0xE1
 #define FLUSH_RX      0xE2
 #define REUSE_TX_PL   0xE3
-#define NOP           0xFF
+//#define NOP           0xFF
 
 /* Non-P omissions */
 #define LNA_HCURR   0

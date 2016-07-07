@@ -44,6 +44,17 @@ namespace Driver
       RF24(uint8, uint8, uint8);
       ~RF24(void);
 
+      // rx on/off
+      void Listen(bool);
+
+      // 1- 125
+      void SetChannel(uint8);
+
+      uint8 GetPayloadSize(void);
+
+      uint8 WritePayload(const uint8*, uint8, const uint8);
+      uint8 ReadPayload(uint8*, uint8);
+
     protected:
       
     private:
@@ -56,28 +67,27 @@ namespace Driver
       reg8 *_port;
       reg8 *_ddr;
 
-      void Setup(void);
+      // rf24
+      void Configure(void);
 
-      // 1= high, 0=low 
+      // HIGH, LOW
       inline void EnablePin(uint8 value) { value == 1 ? PORT_SET(*_port,(1<<_enablePin)) : PORT_CLR(*_port,(1<<_enablePin)); };
       inline void SelectPin(uint8 value) { value == 1 ? PORT_SET(*_port,(1<<_selectPin)) : PORT_CLR(*_port,(1<<_selectPin)); };
 
       inline void StartTransacton(void) { SelectPin(LOW); EnablePin(HIGH); DELAY_MS(5); }
       inline void StopTransacton(void) { EnablePin(LOW); SelectPin(HIGH); }
 
-      uint8 WritePayload(const uint8*, uint8, const uint8);
-      uint8 ReadPayload(uint8*, uint8);
-
       uint8 ReadRegister(uint8, uint8*, uint8);
 
       uint8 WriteRegister(uint8, uint8);
       uint8 WriteRegister(uint8, const uint8*, uint8);
  
+      // ON/OFF
+      void Power(bool);
+
       // tx & rx
       void ClearBuffers(void);
-      void SetChannel(uint8);
 
-      uint8 GetPayloadSize(void);
   };
 };
 #endif

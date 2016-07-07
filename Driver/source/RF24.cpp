@@ -12,8 +12,6 @@ using namespace Core;
 #include "../include/nRF24L01.h"
 using namespace Driver;
 
-#define Delay               75
-
 RF24::RF24(uint8 port, uint8 enablePin, uint8 selectPin)
 {
   _enablePin = enablePin;
@@ -43,6 +41,8 @@ RF24::RF24(uint8 port, uint8 enablePin, uint8 selectPin)
   PORT_SET(*_ddr,(1<<_selectPin));
 
   _spi = new SPI();
+
+  Configure();
 }
 
 RF24::~RF24(void)
@@ -55,15 +55,55 @@ uint8 RF24::GetPayloadSize(void)
   return PAYLOAD_SIZE;
 }
 
-void RF24::Setup(void)
+void RF24::Configure(void)
 {
-  //begin
+  
+
+
+  /// not done!!!
 }
 
-// start listenting, stop listening, read payload
-// write payload
-// power up, power down
+// RX on/off
+void RF24::Listen(bool active)
+{
+  uint8 config;
+  ReadRegister(NRF_CONFIG, &config, 1);
 
+  // check if already on
+  if((config & (1<<PRIM_RX)) != 0)
+    return;
+  config |= PRIM_RX;
+
+  WriteRegister(NRF_CONFIG, &config, 1);
+
+  if (active)
+  {
+    StartTransacton();
+    ClearBuffers();
+  }
+  else
+  {
+    StopTransacton();
+  }
+}
+
+void RF24::Power(bool active)
+{
+   uint8 config;
+   ReadRegister(NRF_CONFIG, &config, 1);
+
+   // if not powered up then power up and wait for the radio to initialize
+   if ( !(config & (1<<PWR_UP)) )
+   {
+      WriteRegister(NRF_CONFIG, config | (1<<PWR_UP));
+
+      DELAY_MS(5); // per datasheet
+   } else if (active == false)
+   {
+     WriteRegister(NRF_CONFIG,config & ~(1<<PWR_UP));
+     EnablePin(LOW);  //CE low
+   }
+}
 
 void RF24::ClearBuffers(void)
 {
