@@ -52,7 +52,7 @@ namespace Driver
 
       uint8 GetPayloadSize(void);
 
-      uint8 WritePayload(const uint8*, uint8, const uint8);
+      uint8 WritePayload(const uint8*, uint8, uint8 operation=NULL);
       uint8 ReadPayload(uint8*, uint8);
 
     protected:

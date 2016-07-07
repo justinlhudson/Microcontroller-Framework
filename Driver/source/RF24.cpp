@@ -74,8 +74,12 @@ void RF24::Listen(bool active)
   uint8 config = ReadRegister(NRF_CONFIG);
 
   // check if already on
-  if((config & (1<<PRIM_RX)) != 0)
+  if(active == true && (config & (1<<PRIM_RX)))
     return;
+  // check if already off
+  else if (active == false && (config & (1<<PRIM_RX)))
+    return;
+
   config |= PRIM_RX;
 
   WriteRegister(NRF_CONFIG, &config, 1);
@@ -96,7 +100,7 @@ void RF24::Power(bool active)
    uint8 config = ReadRegister(NRF_CONFIG);
 
    // if not powered up then power up and wait for the radio to initialize
-   if ( !(config & (1<<PWR_UP)) )
+   if ( active == true && !(config & (1<<PWR_UP)) )
    {
       WriteRegister(NRF_CONFIG, config | (1<<PWR_UP));
 
@@ -123,7 +127,7 @@ void RF24::SetChannel(uint8 channel)
   WriteRegister(RF_CHANNEL, channel);
 }
 
-uint8 RF24::WritePayload(const uint8* buffer, uint8 length, const uint8 operation)
+uint8 RF24::WritePayload(const uint8* buffer, uint8 length, uint8 operation)
 {
   uint8 status;
   length = length < GetPayloadSize() ? length : GetPayloadSize();
@@ -131,6 +135,8 @@ uint8 RF24::WritePayload(const uint8* buffer, uint8 length, const uint8 operatio
   uint8 blank_length = GetPayloadSize() - length;
 
   StartTransacton();
+  if (operation == NULL)
+    operation= WRITE_TX_PAYLOAD;
   status = _spi->Transfer( operation );
   while ( length-- )
     _spi->Transfer(*buffer++);
