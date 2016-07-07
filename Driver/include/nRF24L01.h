@@ -1,7 +1,18 @@
 
+#define MAX_CHANNEL       125
+#define PAYLOAD_SIZE       32
+
 #define READ_REGISTER     0x00
 #define WRITE_REGISTER    0x20
 #define REGISTER_MASK     0x1F
+#define FLUSH_TX          0xE1
+#define FLUSH_RX          0xE2
+
+#define RF_CHANNEL        0x05
+
+
+
+
 
 /* Memory Map */
 #define NRF_CONFIG      0x00
@@ -80,7 +91,8 @@
 #define EN_DYN_ACK  0
 
 /* Instruction Mnemonics */
-
+#define R_REGISTER    0x00
+#define W_REGISTER    0x20
 #define ACTIVATE      0x50
 #define R_RX_PL_WID   0x60
 #define R_RX_PAYLOAD  0x61

@@ -47,20 +47,22 @@ typedef unsigned long long              uint64;
 #if defined(__cplusplus)
   enum boolean
   {
-    no = 0, yes=1,
-    off = 0, on=1
+    NO = 0, YES=1,
+    OFF = 0, ON=1,
+    LOW = 0, HIGH = 1
   };
 #else
   //if C, there is no bool
   #if !defined(bool)
     typedef unsigned char     bool;
-    enum boolean 
-    {
-      false=0, true=1,
-      no = 0, yes=1,
-      off = 0, on=1
-    };
   #endif
+  enum boolean
+  {
+    false = 0, true = 1,
+    NO = 0, YES = 1,
+    OFF = 0, ON = 1,
+    LOW = 0, HIGH = 1
+  };
 #endif
 
 typedef volatile uint8_t     reg8;

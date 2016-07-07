@@ -50,6 +50,46 @@ RF24::~RF24(void)
   delete _spi;
 }
 
+void RF24::Setup(void)
+{
+
+}
+
+void RF24::ClearBuffers(void)
+{
+  StartTransacton();
+  _spi->Transfer( FLUSH_TX );
+  _spi->Transfer( FLUSH_RX );
+  StopTransacton();
+}
+
+void RF24::SetChannel(uint8 channel)
+{
+  if (channel <= MAX_CHANNEL)
+  WriteRegister(RF_CHANNEL, channel);
+}
+
+uint8 RF24::ReadRegister(uint8 location, uint8* buffer, uint8 length)
+{
+  uint8 status;
+
+  StartTransacton();
+  status = _spi->Transfer( READ_REGISTER | ( REGISTER_MASK & location ) );
+  while ( length-- )
+    *buffer++ = _spi->Transfer(0xFF);
+  StopTransacton();
+
+  return status;
+}
+
+uint8 RF24::WriteRegister(uint8 location, uint8 value)
+{
+  unsigned char data[5];
+  data[0] = value;
+
+  return WriteRegister(location, data, 1);
+}
+
 uint8 RF24::WriteRegister(uint8 location, const uint8* buffer, uint8 length)
 {
   uint8 status;

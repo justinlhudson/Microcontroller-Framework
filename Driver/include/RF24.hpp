@@ -48,29 +48,31 @@ namespace Driver
       
     private:
       SPI *_spi;
-      uint8 _rxBuffer[RF24_BUFFER_LENGTH];
-      uint8 _txBuffer[RF24_BUFFER_LENGTH];
+      //uint8 _rxBuffer[RF24_BUFFER_LENGTH];
+      //uint8 _txBuffer[RF24_BUFFER_LENGTH];
 
       uint8 _enablePin;  // ce
       uint8 _selectPin;  // csn
       reg8 *_port;
       reg8 *_ddr;
 
+      void Setup(void);
+
       // 1= high, 0=low 
       inline void EnablePin(uint8 value) { value == 1 ? PORT_SET(*_port,(1<<_enablePin)) : PORT_CLR(*_port,(1<<_enablePin)); };
-      // 1= high, 0=low 
       inline void SelectPin(uint8 value) { value == 1 ? PORT_SET(*_port,(1<<_selectPin)) : PORT_CLR(*_port,(1<<_selectPin)); };
 
-      inline void StartTransacton(void) { SelectPin(0); EnablePin(1); }
-      inline void StopTransacton(void) { EnablePin(0); SelectPin(1); }
+      inline void StartTransacton(void) { SelectPin(LOW); EnablePin(HIGH); DELAY_MS(5); }
+      inline void StopTransacton(void) { EnablePin(LOW); SelectPin(HIGH); }
 
-      /// <summary>
-      /// Write register value to chip
-      /// </summary>
-      /// <param name="location">register/param>
-      /// <param name="buffer">data</param>
-      /// <param name="length">of buffer</param>
+      uint8 ReadRegister(uint8, uint8*, uint8);
+
+      uint8 WriteRegister(uint8, uint8);
       uint8 WriteRegister(uint8, const uint8*, uint8);
+ 
+      // tx & rx
+      void ClearBuffers(void);
+      void SetChannel(uint8);
   };
 };
 #endif
