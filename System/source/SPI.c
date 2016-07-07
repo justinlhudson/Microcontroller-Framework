@@ -105,11 +105,11 @@ uint8 SPI_Transfer_Single(uint8 value)
   return SPDR;
 }
 
-void SPI_Transfer(uint8* buffer, uint16 count)
+void SPI_Transfer(uint8* buffer, uint16 length)
 {
-  if (count == 0) return;
+  if (length == 0) return;
   SPDR = *buffer;
-  while (--count > 0) 
+  while (--length > 0) 
   {
     uint8 out = *(buffer + 1);
     while ( !(SPSR & (1<<SPIF)) ) ;

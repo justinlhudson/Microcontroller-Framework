@@ -51,10 +51,15 @@ namespace Driver
       uint8 _rxBuffer[RF24_BUFFER_LENGTH];
       uint8 _txBuffer[RF24_BUFFER_LENGTH];
 
-      uint8 _enablePin;
-      uint8 _selectPin;
+      uint8 _enablePin;  // ce
+      uint8 _selectPin;  // csn
       reg8 *_port;
       reg8 *_ddr;
+
+      // 1= high, 0=low 
+      inline void EnablePin(uint8 value) { value == 1 ? PORT_SET(*_port,(1<<_enablePin)) : PORT_CLR(*_port,(1<<_enablePin)); };
+      // 1= high, 0=low 
+      inline void SelectPin(uint8 value) { value == 1 ? PORT_SET(*_port,(1<<_selectPin)) : PORT_CLR(*_port,(1<<_selectPin)); };
   };
 };
 #endif

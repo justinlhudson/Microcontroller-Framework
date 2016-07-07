@@ -38,6 +38,10 @@ RF24::RF24(uint8 port, uint8 enablePin, uint8 selectPin)
       break;
   }
 
+  // set pins as OUTPUT
+  PORT_SET(*_ddr,(1<<_enablePin));
+  PORT_SET(*_ddr,(1<<_selectPin));
+
   _spi = new SPI();
 }
 

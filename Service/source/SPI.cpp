@@ -40,7 +40,7 @@ uint8 SPI::Transfer(uint8 value)
   return SPI_Transfer_Single(value);
 }
 
-void SPI::Transfer(uint8* buffer, uint16 count)
+void SPI::Transfer(uint8* buffer, uint16 length)
 {
-  SPI_Transfer(buffer, count);
+  SPI_Transfer(buffer, length);
 }

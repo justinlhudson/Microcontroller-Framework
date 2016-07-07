@@ -58,7 +58,7 @@ namespace Service
       /// Transfer
       /// </summary>
       /// <param name="buffer">in/out arrary</param>
-      /// <param name="count">array count</param>
+      /// <param name="length"></param>
       void Transfer(uint8*, uint16);
 
     private:
