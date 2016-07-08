@@ -62,7 +62,7 @@ uint8 RF24::GetPayloadSize(void)
 
 void RF24::Configure(void)
 {
-  WriteRegister(EN_AA, 0x01);  //enable auto ACK (plus only)
+  WriteRegister(EN_AA, 0x00);  //disable auto ACK (plus only), also disables retry
 
   WriteRegister(SETUP_AW, 0x11);  // 5 byte address (max)
 
@@ -130,6 +130,7 @@ void RF24::ClearBuffers(void)
   _spi->Transfer( FLUSH_RX );
 }
 
+// Note: address is for RX pipe to know is for it else ignores
 void RF24::SetAddress(const uint8* address)
 {
   WriteRegister(TX_ADDR, address, 5);
