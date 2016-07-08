@@ -71,7 +71,7 @@ void RF24::Configure(void)
 
   uint8 setup = ReadRegister(RF_SETUP);
   setup &= ~( (1<<RF_DR_LOW) | (1<<RF_DR_HIGH) );  // 1Mbps = 0b00
-  setpup |= (1<<RF_PWR_LOW) | (1<<RF_PWR_HIGH); // 0dBm  max! = 0b11
+  setup |= (1<<RF_PWR_LOW) | (1<<RF_PWR_HIGH); // 0dBm  max! = 0b11
   WriteRegister(RF_SETUP, setup);
 
   WriteRegister(RX_PW_P0,GetPayloadSize());
