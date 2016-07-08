@@ -46,8 +46,10 @@ namespace Driver
 
       // rx on/off
       void Listen(bool);
+      bool isAvailable(void);
 
       // 1- 125
+      void SetAddress(const uint8*); // 5 bytes
       void SetChannel(uint8);
 
       uint8 GetPayloadSize(void);

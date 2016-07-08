@@ -71,8 +71,14 @@ void RF24::Configure(void)
   uint8 setup = ReadRegister(RF_SETUP);
   setup &= ~( (1<<RF_DR_LOW) | (1<<RF_DR_HIGH) );  // 1Mbps = 00b
   WriteRegister(RF_SETUP, setup);
+  WriteRegister(RX_PW_P0,GetPayloadSize());
+}
 
-  //configure pipe??????
+bool RF24::isAvailable(void)
+{
+  if (!( ReadRegister(FIFO_STATUS) & (1<<RX_EMPTY) ))
+    return true;
+  return false;
 }
 
 // RX on/off
@@ -96,19 +102,28 @@ void RF24::Listen(bool active)
 
   if (active)
   {
+    // enable pipe here ?
     Standby(false);
-    ClearBuffers();
   }
   else
   {
+    // disable pipe here?
     Standby(true);
   }
+
+  ClearBuffers();
 }
 
 void RF24::ClearBuffers(void)
 {
   _spi->Transfer( FLUSH_TX );
   _spi->Transfer( FLUSH_RX );
+}
+
+void RF24::SetAddress(const uint8* address)
+{
+  WriteRegister(TX_ADDR, address, 5);
+  WriteRegister(RX_ADDR_P0, address, 5);
 }
 
 // F0= 2400 + RF_CH [MHz]
@@ -205,7 +220,7 @@ void RF24::Power(bool active)
       Standby(false);
    } else if (active == false)
    {
-     WriteRegister(NRF_CONFIG,config & ~(1<<PWR_UP));
      Standby(true);
+     WriteRegister(NRF_CONFIG,config & ~(1<<PWR_UP));
    }
 }

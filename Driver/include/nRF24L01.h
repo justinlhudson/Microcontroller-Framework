@@ -13,6 +13,10 @@
 #define FLUSH_TX          0xE1
 #define FLUSH_RX          0xE2
 
+#define TX_ADDR           0x10
+#define RX_ADDR_P0        0x0A
+#define RX_PW_P0    0x11
+
 #define RF_CHANNEL        0x05
 #define RF_SETUP    0x06
 
@@ -20,6 +24,9 @@
 #define EN_RXADDR   0x02
 
 #define SETUP_AW    0x03
+
+#define FIFO_STATUS 0x17
+#define RX_EMPTY    0
 
 // bits
 #define PRIM_RX           0
@@ -36,7 +43,7 @@
 #define DONTCARE          0xFF
 #define PADDING           0x00
 
-
+///////////////////////////////////////////////////////////////////
 
 
 /* Memory Map */
