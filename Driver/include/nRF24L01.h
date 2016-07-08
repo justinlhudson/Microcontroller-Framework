@@ -43,10 +43,8 @@
 #define DONTCARE          0xFF
 #define PADDING           0x00
 
-///////////////////////////////////////////////////////////////////
+////////////////////////////// BELOW NOT USED/////////////////////////////////////
 
-
-/* Memory Map */
 #define NRF_CONFIG      0x00
 #define EN_AA       0x01
 #define EN_RXADDR   0x02
@@ -74,7 +72,6 @@
 #define DYNPD	    0x1C
 #define FEATURE	    0x1D
 
-/* Bit Mnemonics */
 #define MASK_RX_DR  6
 #define MASK_TX_DS  5
 #define MASK_MAX_RT 4
@@ -122,7 +119,6 @@
 #define EN_ACK_PAY  1
 #define EN_DYN_ACK  0
 
-/* Instruction Mnemonics */
 #define R_REGISTER    0x00
 #define W_REGISTER    0x20
 #define ACTIVATE      0x50
@@ -135,14 +131,11 @@
 #define REUSE_TX_PL   0xE3
 //#define NOP           0xFF
 
-/* Non-P omissions */
 #define LNA_HCURR   0
 
-/* P model memory Map */
 #define RPD         0x09
 #define W_TX_PAYLOAD_NO_ACK  0xB0
 
-/* P model bit Mnemonics */
 #define RF_DR_LOW   5
 #define RF_DR_HIGH  3
 #define RF_PWR_LOW  1
