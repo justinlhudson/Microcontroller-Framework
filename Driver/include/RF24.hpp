@@ -59,23 +59,15 @@ namespace Driver
       
     private:
       SPI* _spi;
-      uint8* _rxBuffer;
-      uint8* _txBuffer;
 
       uint8 _enablePin;  // ce
-      uint8 _selectPin;  // csn
       reg8 *_port;
       reg8 *_ddr;
 
       // rf24
       void Configure(void);
 
-      // HIGH, LOW
-      inline void EnablePin(uint8 value) { value == 1 ? PORT_SET(*_port,(1<<_enablePin)) : PORT_CLR(*_port,(1<<_enablePin)); };
-      inline void SelectPin(uint8 value) { value == 1 ? PORT_SET(*_port,(1<<_selectPin)) : PORT_CLR(*_port,(1<<_selectPin)); };
-
-      inline void StartTransacton(void) { SelectPin(LOW); EnablePin(HIGH); DELAY_MS(5); }
-      inline void StopTransacton(void) { EnablePin(LOW); SelectPin(HIGH); }
+      inline void Standby(bool active) { active == true ? PORT_CLR(*_port,(1<<_enablePin)): PORT_SET(*_port,(1<<_enablePin)); DELAY_MS(5); }
 
       uint8 ReadRegister(uint8);
       uint8 ReadRegister(uint8, uint8*, uint8);

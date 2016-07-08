@@ -81,7 +81,7 @@ void ThreadPool::Suspend()
 void ThreadPool::Add(Item_t item)
 {
   _lock.SectionEnter();
-  {     
+  {
     if(_count < THREAD_POOL_SIZE)
     {
       _count++;

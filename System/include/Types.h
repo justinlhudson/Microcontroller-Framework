@@ -21,6 +21,9 @@
 #if !defined(NULL)
   #define NULL                          0
 #endif
+#if !defined(null)
+  #define null                          NULL
+#endif
 
 #define END_CHAR                        '\0'
 
