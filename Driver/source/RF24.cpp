@@ -68,9 +68,12 @@ void RF24::Configure(void)
 
   // RX
   WriteRegister(EN_RXADDR, ReadRegister(EN_RXADDR) | (1>>ERX_P0)); // Enable RX on pipe0
+
   uint8 setup = ReadRegister(RF_SETUP);
-  setup &= ~( (1<<RF_DR_LOW) | (1<<RF_DR_HIGH) );  // 1Mbps = 00b
+  setup &= ~( (1<<RF_DR_LOW) | (1<<RF_DR_HIGH) );  // 1Mbps = 0b00
+  setpup |= (1<<RF_PWR_LOW) | (1<<RF_PWR_HIGH); // 0dBm  max! = 0b11
   WriteRegister(RF_SETUP, setup);
+
   WriteRegister(RX_PW_P0,GetPayloadSize());
 }
 
@@ -79,6 +82,13 @@ bool RF24::isAvailable(void)
   if (!( ReadRegister(FIFO_STATUS) & (1<<RX_EMPTY) ))
     return true;
   return false;
+}
+
+// RPD - receved power level above -64 dBm
+// CD - carrier detect line found
+bool RF24::Detected(void)
+{
+  return (ReadRegister(RPD) & 1) | (ReadRegister(CD) & 1);
 }
 
 // RX on/off

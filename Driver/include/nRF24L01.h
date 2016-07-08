@@ -27,6 +27,8 @@
 
 #define FIFO_STATUS 0x17
 #define RX_EMPTY    0
+#define CD          0x09
+#define RPD         0x09
 
 // bits
 #define PRIM_RX           0

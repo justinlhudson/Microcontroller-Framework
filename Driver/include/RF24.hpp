@@ -47,6 +47,8 @@ namespace Driver
       // rx on/off
       void Listen(bool);
       bool isAvailable(void);
+      // scanning network for RX signal
+      bool Detected(void);
 
       // 1- 125
       void SetAddress(const uint8*); // 5 bytes
