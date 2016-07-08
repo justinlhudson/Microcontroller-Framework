@@ -30,6 +30,8 @@
 #define CD          0x09
 #define RPD         0x09
 
+#define SETUP_RETR  0x04
+
 // bits
 #define PRIM_RX           0
 #define PWR_UP            1
