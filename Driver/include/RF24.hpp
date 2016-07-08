@@ -60,6 +60,7 @@ namespace Driver
     protected:
       
     private:
+      // is dynamic to allow talking with muiplte chips without wasting memory until needed
       SPI* _spi;
 
       uint8 _enablePin;  // ce
