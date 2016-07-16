@@ -1,10 +1,10 @@
 /*-----------------------------------------------------------------------------
- * 
+ *
  * Released: <2016/06/04>
  * Modified: <YEAR/MONTH/DAY>
- * 
+ *
  * Description:
- * 
+ *
  *-----------------------------------------------------------------------------
  */
 
@@ -46,6 +46,7 @@ namespace Driver
 
       // rx on/off
       void Listen(bool);
+      // have data to read
       bool isAvailable(void);
       // scanning network for RX signal
       bool Detected(void);
@@ -60,7 +61,7 @@ namespace Driver
       uint8 ReadPayload(uint8*, uint8);
 
     protected:
-      
+
     private:
       // is dynamic to allow talking with muiplte chips without wasting memory until needed
       SPI* _spi;
@@ -79,7 +80,7 @@ namespace Driver
 
       uint8 WriteRegister(uint8, uint8);
       uint8 WriteRegister(uint8, const uint8*, uint8);
- 
+
       // ON/OFF
       void Power(bool);
 
