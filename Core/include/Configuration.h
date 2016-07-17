@@ -58,7 +58,8 @@
 #define MAX_CLASS_OBSERVERS                               16
 
 //WDT ms.
-#define WDT_TIMER_TIMEOUT                                 4000
+// Important, with RTOS timing do not increase above 2 seconds
+#define WDT_TIMER_TIMEOUT                                 2000
 
 //Wait
 //Max. amount of wait conditions
