@@ -94,32 +94,18 @@ bool RF24::Detected(void)
 // RX on/off
 void RF24::Listen(bool active)
 {
-  // return (if not already) to standby state 1
-  Standby(true);
-
   uint8 config = ReadRegister(NRF_CONFIG);
 
-  // check if already on
-  if(active == true && (config & (1<<PRIM_RX)))
-    return;
-  // check if already off
-  else if (active == false && (config & (1<<PRIM_RX)))
-    return;
+  Standby(false);
 
-  config |= PRIM_RX;
+  // check if already on
+  if(active == false && (config & (1<<PRIM_RX)))
+    PORT_TOGGLE(config,(1<<PRIM_RX));
+  // check if already off
+  else if (active == true && (config & (1<<PRIM_RX)))
+    PORT_TOGGLE(config,(1<<PRIM_RX));
 
   WriteRegister(NRF_CONFIG, &config, 1);
-
-  if (active)
-  {
-    // enable pipe here ?
-    Standby(false);
-  }
-  else
-  {
-    // disable pipe here?
-    Standby(true);
-  }
 
   ClearBuffers();
 }

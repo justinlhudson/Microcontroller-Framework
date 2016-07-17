@@ -73,7 +73,7 @@ namespace Driver
       // rf24
       void Configure(void);
 
-      inline void Standby(bool active) { active == true ? PORT_CLR(*_port,(1<<_enablePin)): PORT_SET(*_port,(1<<_enablePin)); DELAY_MS(5); }
+      inline void Standby(bool active) { active == true ? PORT_SET(*_port,(1<<_enablePin)): PORT_CLR(*_port,(1<<_enablePin)); DELAY_MS(5); }
 
       uint8 ReadRegister(uint8);
       uint8 ReadRegister(uint8, uint8*, uint8);
