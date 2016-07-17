@@ -14,7 +14,7 @@
 //Note: Timer1 (16-bit) is used for FreeRTOS
 
 //ThreadPool
-#define THREAD_POOL_WORKERS                               1
+#define THREAD_POOL_WORKERS                               2
 #define THREAD_POOL_SIZE                                  9
 
 // Defines number of tasks to be ready to create by changing heap size allocated.
