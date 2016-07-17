@@ -14,20 +14,42 @@
 //Note: Timer1 (16-bit) is used for FreeRTOS
 
 //ThreadPool
-#define THREAD_POOL_WORKERS                               2
+#define THREAD_POOL_WORKERS                               1
 #define THREAD_POOL_SIZE                                  9
 
 // Defines number of tasks to be ready to create by changing heap size allocated.
 // Note: This is in addition to current framework setup/operations.
-// monitor (i.e. WDT), application, idle task, relativeTime, thread pool (X)
-#define CREATE_TASKS                                      (4 + THREAD_POOL_WORKERS)
+// monitor (i.e. WDT), application, core, idle task, relativeTime, thread pool (X)
+#define CREATE_TASKS                                      (5 + THREAD_POOL_WORKERS)
 
 #define CPU_FREQUENCY_HZ                                  (FREQUENCY)
 
 // Used to Trace Logging (uin8 max) 9600 (normal), 115200 (greater 2x), 2000000 (2mb max on 16mhz)
 #define TRACE_BAUD_RATE                                   115200
 
-#define TRACE_LEVEL                                       Trace::Debug
+// All=128, Fatal=1, Error=2, Warning=3, Info=4, Debug=5, Operation = -1, None = -128
+// Important: matches Trace.h enum
+#if defined(TRACE)
+  #if TRACE == -128
+    #define TRACE_LEVEL                                       Trace::None
+  #elif TRACE == -1
+    #define TRACE_LEVEL                                       Trace::Operation
+  #elif TRACE == 5
+    #define TRACE_LEVEL                                       Trace::Debug
+  #elif TRACE == 4
+    #define TRACE_LEVEL                                       Trace::Info
+  #elif TRACE == 3
+    #define TRACE_LEVEL                                       Trace::Warning
+  #elif TRACE == 2
+    #define TRACE_LEVEL                                       Trace::Error
+  #elif TRACE == 1
+    #define TRACE_LEVEL                                       Trace::Fatal
+  #else
+    #define TRACE_LEVEL                                       Trace::All
+  #endif
+#else
+  #define TRACE_LEVEL                                         Trace::All
+#endif
 
 // MAX = 256
 #define USART_BUFFER_LENGTH                               128
@@ -36,7 +58,7 @@
 #define MAX_CLASS_OBSERVERS                               16
 
 //WDT ms.
-#define WDT_TIMER_TIMEOUT                                 2000
+#define WDT_TIMER_TIMEOUT                                 4000
 
 //Wait
 //Max. amount of wait conditions

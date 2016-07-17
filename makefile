@@ -12,6 +12,10 @@ MCU = $(MODEL)
 # Processor frequency (e.g. 16000000)
 F_CPU = $(FREQUENCY)
 
+# Trace level 128 ~ ALL, MAX)
+ifndef TRACE
+	TRACE = 128
+endif
 # Test(s) to run
 ifndef TEST
 	TEST = 0
@@ -24,7 +28,7 @@ endif
 
 # Passing arguments to source
 DEFS = -DF_CPU=$(F_CPU)UL
-DEFS += -DFREQUENCY=$(FREQUENCY)UL -DMODEL=$(MODEL) -DBOARD=$(BOARD) -DNAME=$(NAME) -DTEST=$(TEST)
+DEFS += -DFREQUENCY=$(FREQUENCY)UL -DMODEL=$(MODEL) -DBOARD=$(BOARD) -DTRACE=$(TRACE) -DNAME=$(NAME) -DTEST=$(TEST)
 
 # Board global, mimic arduino
 ifeq ($(MCU),atmega2560)
