@@ -1,4 +1,4 @@
-extern "C" 
+extern "C"
 {
   #include "System/include/Definitions.h"
   #include "System/include/Tools.h"
@@ -11,6 +11,9 @@ using namespace Core;
 #include "../include/RF24.hpp"
 #include "../include/nRF24L01.h"
 using namespace Driver;
+
+// 2.4GHz-2.4835GHz
+#define CHANNEL_FREQUENCY(channel)     (float)(2.4 + ((0.0835/(float)MAX_CHANNEL) * channel) )
 
 RF24::RF24(uint8 port, uint8 enablePin, uint8 selectPin)
 {
@@ -40,12 +43,10 @@ RF24::RF24(uint8 port, uint8 enablePin, uint8 selectPin)
 
   _spi = new SPI(port,selectPin);
 
-  // tx/rx off on start
-  Standby(true);
-  // wake up!
+//  Power(false);  // feels good to turn off just incase is on
   Power(true);
-
   Configure();
+  Listen(false);
 }
 
 RF24::~RF24(void)
@@ -74,7 +75,12 @@ void RF24::Configure(void)
   setup |= (1<<RF_PWR_LOW) | (1<<RF_PWR_HIGH); // 0dBm  max! = 0b11
   WriteRegister(RF_SETUP, setup);
 
-  WriteRegister(RX_PW_P0,GetPayloadSize());
+  WriteRegister(RX_PW_P0,RF24::GetPayloadSize());
+}
+
+bool RF24::isSent(void)
+{
+  return ReadRegister(NRF_STATUS) & (1<<TX_DS);
 }
 
 bool RF24::isAvailable(void)
@@ -88,32 +94,41 @@ bool RF24::isAvailable(void)
 // CD - carrier detect line found
 bool RF24::Detected(void)
 {
-  return (ReadRegister(RPD) & 1) | (ReadRegister(CD) & 1);
+  return (ReadRegister(CD) & 1) | (ReadRegister(RPD) & 1);
 }
 
-// RX on/off
+// RX on/off, TX off/on
 void RF24::Listen(bool active)
 {
   uint8 config = ReadRegister(NRF_CONFIG);
 
-  Standby(false);
-
-  // check if already on
-  if(active == false && (config & (1<<PRIM_RX)))
-    PORT_TOGGLE(config,(1<<PRIM_RX));
-  // check if already off
-  else if (active == true && (config & (1<<PRIM_RX)))
-    PORT_TOGGLE(config,(1<<PRIM_RX));
+  // check if on and should be off
+  if(active == false)
+    PORT_CLR(config,(1<<PRIM_RX));
+  // check if off and should be on
+  else if (active == true)
+    PORT_SET(config,(1<<PRIM_RX));
 
   WriteRegister(NRF_CONFIG, &config, 1);
 
-  ClearBuffers();
+  Standby(!active);
+  Clear();
 }
 
-void RF24::ClearBuffers(void)
+void RF24::Clear(void)
 {
   _spi->Transfer( FLUSH_TX );
   _spi->Transfer( FLUSH_RX );
+
+  // clear IRQ (all active low)
+  uint8 config = ReadRegister(NRF_CONFIG);
+
+  PORT_SET(config,(1<<MAX_RT));
+  PORT_SET(config,(1<<TX_DS));
+  PORT_SET(config,(1<<RX_DR));
+
+  WriteRegister(NRF_CONFIG, &config, 1);
+
 }
 
 // Note: address is for RX pipe to know is for it else ignores
@@ -126,16 +141,26 @@ void RF24::SetAddress(const uint8* address)
 // F0= 2400 + RF_CH [MHz]
 void RF24::SetChannel(uint8 channel)
 {
-  if (channel <= MAX_CHANNEL)
-  WriteRegister(RF_CHANNEL, channel);
+  if (channel <= RF24::GetMaxChannel())
+    WriteRegister(RF_CHANNEL, channel);
+}
+
+uint8 RF24::GetMaxChannel(void)
+{
+  return MAX_CHANNEL;
+}
+
+float RF24::GetFrequency(uint8 channel)
+{
+  return CHANNEL_FREQUENCY(channel);
 }
 
 uint8 RF24::WritePayload(const uint8* buffer, uint8 length, uint8 operation)
 {
   uint8 status;
-  length = length < GetPayloadSize() ? length : GetPayloadSize();
+  length = length < RF24::GetPayloadSize() ? length : RF24::GetPayloadSize();
   // for padding if data length less then payload
-  uint8 blank_length = GetPayloadSize() - length;
+  uint8 blank_length = RF24::GetPayloadSize() - length;
 
   Standby(false);
 
@@ -147,23 +172,23 @@ uint8 RF24::WritePayload(const uint8* buffer, uint8 length, uint8 operation)
   while ( blank_length-- )
     _spi->Transfer(PADDING);
 
+  Standby(true);
+
   return status;
 }
 
 uint8 RF24::ReadPayload(uint8* buffer, uint8 length)
 {
   uint8 status;
-  length = length < GetPayloadSize() ? length : GetPayloadSize();
+  length = length < RF24::GetPayloadSize() ? length : RF24::GetPayloadSize();
   // for padding if data length less then payload
   uint8 blank_length = GetPayloadSize() - length;
 
-  Standby(false);
-
   status = _spi->Transfer( READ_RX_PAYLOAD );
   while ( length-- )
-    *buffer++ = _spi->Transfer(DONTCARE);
+    *buffer++ = _spi->Transfer(PADDING);
   while ( blank_length-- )
-    _spi->Transfer(DONTCARE);
+    _spi->Transfer(PADDING);
 
   return status;
 }
@@ -181,7 +206,7 @@ uint8 RF24::ReadRegister(uint8 location, uint8* buffer, uint8 length)
 
   status = _spi->Transfer( READ_REGISTER | ( REGISTER_MASK & location ) );
   while ( length-- )
-    *buffer++ = _spi->Transfer(DONTCARE);
+    *buffer++ = _spi->Transfer(PADDING);
 
   return status;
 }
@@ -214,10 +239,11 @@ void RF24::Power(bool active)
    {
       WriteRegister(NRF_CONFIG, config | (1<<PWR_UP));
       DELAY_MS(5); // per datasheet
-      Standby(false);
    } else if (active == false)
    {
-     Standby(true);
      WriteRegister(NRF_CONFIG,config & ~(1<<PWR_UP));
    }
+
+   Standby(true);
 }
+

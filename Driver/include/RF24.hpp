@@ -31,7 +31,7 @@ namespace Driver
   /// <summary>
   /// RF24 Wifi
   /// </summary>
-  /// <remarks></remarks>
+  /// <remarks>2.4GHz-2.4835GHz</remarks>
   class RF24
   {
     public:
@@ -44,8 +44,12 @@ namespace Driver
       RF24(uint8, uint8, uint8);
       ~RF24(void);
 
+      inline void Standby(bool active) { active == true ? PORT_SET(*_port,(1<<_enablePin)): PORT_CLR(*_port,(1<<_enablePin)); DELAY_MS(5); }
+
       // rx on/off
       void Listen(bool);
+      // tx complete
+      bool isSent(void);
       // have data to read
       bool isAvailable(void);
       // scanning network for RX signal
@@ -55,10 +59,17 @@ namespace Driver
       void SetAddress(const uint8*); // 5 bytes
       void SetChannel(uint8);
 
-      uint8 GetPayloadSize(void);
+      static uint8 GetMaxChannel(void);
 
-      uint8 WritePayload(const uint8*, uint8, uint8 operation=NULL);
-      uint8 ReadPayload(uint8*, uint8);
+      static float GetFrequency(uint8);
+
+      static uint8 GetPayloadSize(void);
+
+      uint8 WritePayload(const uint8*, uint8 length=RF24::GetPayloadSize(), uint8 operation=NULL);
+      uint8 ReadPayload(uint8*, uint8 length=RF24::GetPayloadSize());
+
+      // tx & rx
+      void Clear(void);
 
     protected:
 
@@ -73,8 +84,6 @@ namespace Driver
       // rf24
       void Configure(void);
 
-      inline void Standby(bool active) { active == true ? PORT_SET(*_port,(1<<_enablePin)): PORT_CLR(*_port,(1<<_enablePin)); DELAY_MS(5); }
-
       uint8 ReadRegister(uint8);
       uint8 ReadRegister(uint8, uint8*, uint8);
 
@@ -83,10 +92,6 @@ namespace Driver
 
       // ON/OFF
       void Power(bool);
-
-      // tx & rx
-      void ClearBuffers(void);
-
   };
 };
 #endif

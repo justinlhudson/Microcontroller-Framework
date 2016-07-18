@@ -15,7 +15,8 @@
 
 #define TX_ADDR           0x10
 #define RX_ADDR_P0        0x0A
-#define RX_PW_P0    0x11
+#define RX_PW_P0          0x11
+#define NRF_STATUS  0x07
 
 #define RF_CHANNEL        0x05
 #define RF_SETUP    0x06
@@ -36,16 +37,22 @@
 #define PRIM_RX           0
 #define PWR_UP            1
 
+#define TX_DS       5
+
 #define ERX_P0      0
 
+#define MAX_RT      4
+#define RX_DR       6
 #define RF_DR_LOW   5
 #define RF_DR_HIGH  3
 #define RF_PWR_LOW  1
 #define RF_PWR_HIGH 2
 
 // values
+//
 #define DONTCARE          0xFF
-#define PADDING           0x00
+// space
+#define PADDING           0x20
 
 ////////////////////////////// BELOW NOT USED/////////////////////////////////////
 
