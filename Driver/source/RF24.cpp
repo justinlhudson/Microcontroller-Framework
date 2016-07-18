@@ -46,7 +46,6 @@ RF24::RF24(uint8 port, uint8 enablePin, uint8 selectPin)
 //  Power(false);  // feels good to turn off just incase is on
   Power(true);
   Configure();
-  Listen(false);
 }
 
 RF24::~RF24(void)
@@ -54,6 +53,11 @@ RF24::~RF24(void)
   // do not use power if not running
   Power(false);
   delete _spi;
+}
+
+uint8 RF24::GetMaxChannel(void)
+{
+  return MAX_CHANNEL;
 }
 
 uint8 RF24::GetPayloadSize(void)
@@ -145,11 +149,6 @@ void RF24::SetChannel(uint8 channel)
     WriteRegister(RF_CHANNEL, channel);
 }
 
-uint8 RF24::GetMaxChannel(void)
-{
-  return MAX_CHANNEL;
-}
-
 float RF24::GetFrequency(uint8 channel)
 {
   return CHANNEL_FREQUENCY(channel);
@@ -186,9 +185,9 @@ uint8 RF24::ReadPayload(uint8* buffer, uint8 length)
 
   status = _spi->Transfer( READ_RX_PAYLOAD );
   while ( length-- )
-    *buffer++ = _spi->Transfer(PADDING);
+    *buffer++ = _spi->Transfer(DONTCARE);
   while ( blank_length-- )
-    _spi->Transfer(PADDING);
+    _spi->Transfer(DONTCARE);
 
   return status;
 }
@@ -206,7 +205,7 @@ uint8 RF24::ReadRegister(uint8 location, uint8* buffer, uint8 length)
 
   status = _spi->Transfer( READ_REGISTER | ( REGISTER_MASK & location ) );
   while ( length-- )
-    *buffer++ = _spi->Transfer(PADDING);
+    *buffer++ = _spi->Transfer(DONTCARE);
 
   return status;
 }

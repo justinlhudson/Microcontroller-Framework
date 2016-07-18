@@ -51,8 +51,7 @@
 // values
 //
 #define DONTCARE          0xFF
-// space
-#define PADDING           0x20
+#define PADDING           0xFF
 
 ////////////////////////////// BELOW NOT USED/////////////////////////////////////
 
