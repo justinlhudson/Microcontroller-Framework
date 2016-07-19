@@ -27,7 +27,7 @@
 #define SETUP_AW    0x03
 
 #define FIFO_STATUS 0x17
-#define RX_EMPTY    0
+
 #define CD          0x09
 #define RPD         0x09
 
@@ -40,6 +40,12 @@
 #define TX_DS       5
 
 #define ERX_P0      0
+
+#define RX_EMPTY    0
+#define TX_EMPTY    4
+
+#define ARD         4
+#define ARC         0
 
 #define MAX_RT      4
 #define RX_DR       6

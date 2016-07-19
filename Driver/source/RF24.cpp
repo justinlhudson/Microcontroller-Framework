@@ -68,6 +68,8 @@ uint8 RF24::GetPayloadSize(void)
 void RF24::Configure(void)
 {
   WriteRegister(EN_AA, 0x00);  //disable auto ACK (plus only), also disables retry
+  WriteRegister(NRF_CONFIG, ReadRegister(NRF_CONFIG) & ~(1<<EN_CRC));  // disable crc
+  WriteRegister(SETUP_RETR,(0&0xf)<<ARD | (0&0xf)<<ARC);  // disable retries
 
   WriteRegister(SETUP_AW, 0x11);  // 5 byte address (max)
 
@@ -84,7 +86,7 @@ void RF24::Configure(void)
 
 bool RF24::isSent(void)
 {
-  return ReadRegister(NRF_STATUS) & (1<<TX_DS);
+  return ReadRegister(NRF_STATUS) & (1<<TX_DS) && (ReadRegister(FIFO_STATUS) & (1<<TX_EMPTY));
 }
 
 bool RF24::isAvailable(void)
