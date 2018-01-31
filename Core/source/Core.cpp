@@ -112,7 +112,7 @@ THREAD_FUNCTION Monitor(THREAD_ARGS args)
                                timeSpan.Year,timeSpan.Day,timeSpan.Hour,timeSpan.Minute,timeSpan.Second);
     }
 
-    Delay((double)(WDT_TIMER_TIMEOUT*0.75));  //keeps timing with RTOS withing 25% range else reboot
+    Delay((double)(WDT_TIMER_TIMEOUT*0.50));  //keeps timing with RTOS withing 50% range else reboot
   }
 }
 
