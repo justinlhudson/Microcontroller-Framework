@@ -25,7 +25,7 @@ Currently only setup for [Atmel](http://www.atmel.com/products/microcontrollers/
 
      run --program [/dev/tty.usbmodem1411]
      run --screen
-       * starts screen tty to ardunio
+       * starts screen tty
 
   - Test
      - Under work
