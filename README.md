@@ -21,20 +21,14 @@ Currently working under OS X, but should easily work under Linux as well...
 
 ## Usage
 
-Currently only setup for [Atmel](http://www.atmel.com/products/microcontrollers/avr/) Family MCUs! Simply use #if, #elfi, #else to seperate "MODEL" when expanding to other model families.
+Currently only setup for [Atmel](http://www.atmel.com/products/microcontrollers/avr/) Family MCUs! Simply use #if, #elfi, #else to seperate "MODEL" when expanding to other model families in makefile.
 
-  - Build
-     - run
-       - run --program [/dev/tty.usbmodem1411]
-       - run --screen
-         * starts screen tty to ardunio
-  - Deploy
-     - Example: 
-       - (Arduino 2560 Mega) avrdude -F -D -c stk500v2 -p m2560 -b 115200 -P /dev/tty.usbmodem1411 -U flash:w:Core.hex
-       - (Arduino Uno) avrdude -F -c arduino-p m328 -P /dev/tty.usbmodem1421 -U flash:w:Core.hex
+     run --program [/dev/tty.usbmodem1411]
+     run --screen
+       * starts screen tty to ardunio
+
   - Test
      - Under work
-     - Example: make -TEST=1
 
 ## Implementation
 
