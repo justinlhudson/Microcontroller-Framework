@@ -66,7 +66,6 @@ Application code placement under *Application/*
 
 Include your source in MakeFile under:
 
-  
     \#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     \#### Application Code ####
@@ -76,6 +75,33 @@ Include your source in MakeFile under:
     /Application/source/Run.cpp
 
     \#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+## Hierarchy
+
+  This is the framework layout for usage in the application development
+
+    |--
+      |-- run
+            * default arguments, used to save typing (and remembering) for repeat terminal operations
+      |-- makefile
+      |-- makefile.common
+            * helper makefile functions, outside the boiler-plate atmel ardunio makefile
+      |-- makefile.extra
+            * files related to specific application using framework (i.e. not framework dependent)
+      |-- System
+            * Mostly C level microcontroller specifics (e.g. ports, pins, registry, ...) and common type definitions
+      |-- Service
+            * Design Pattern(s) and abstraction from the system level hardware specifics
+      |-- External
+            * 3rd party
+      |-- Driver
+            * Specifcs for attached hardware (e.g. sensors, contacts, motor, ...)
+      |-- Component
+            * Complementing software for operation (e.g. software counter, keyboard interaction, ...)
+      |-- Core
+            * Entry point with simple extern functions (see Implementation) as starting point for application specifics
+      |-- Application
+            * Everything (i.e. catch-all) for the application specific files
 
 ## Hardware
 

@@ -27,21 +27,6 @@ Operation::~Operation(void)
 
 }
 
-/*
-Operation::Message Operation::Command(Message message)
-{
-  // ToDo:  switch for commands and for some place in thread pool for completion
-  if(strcmp(message.Command, "someCommand") == 0)
-  {
-      if(strcmp(message.Operation, "doThis") == 0)
-      {
-        //message.Response =;
-      }
-  }
-  return message;
-}
-*/
-
 void Operation::Process(void)
 {
   // Todo:  actually start to do stuff....

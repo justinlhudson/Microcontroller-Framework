@@ -28,9 +28,9 @@ RelativeTimeClock::~RelativeTimeClock(void)
   ;
 }
 
-RelativeTimeClock* RelativeTimeClock::Instance() 
+RelativeTimeClock* RelativeTimeClock::Instance()
 {
-  if(_instance == 0)
+  if(_instance == NULL)
     _instance = &_singleton;
   return _instance;
 }
@@ -66,7 +66,7 @@ RelativeTimeClock::TimeSpan_t RelativeTimeClock::Get(void)
 
 void RelativeTimeClock::Execute(void)
 {
-  Delay(995); //~1.00 sec (just under, inspection shows ~5msec turn around)
+  Delay(955); //~1.00 sec (just under, inspection shows under on turn around)
 
   if(_active)
   {  
