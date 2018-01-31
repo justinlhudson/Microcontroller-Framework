@@ -30,26 +30,10 @@ namespace Application
   class Operation
   {
     public:
-/*
-      /// <summary>
-      /// Define message type
-      /// </summary>
-      /// <remarks>
-      /// </remarks>
-      struct Message
-      {
-          int8 Command[8];
-          int8 Operation[8];
-          int8 Value[32];
-          int8 Response[8];
-      };
-*/
+
       Operation(void);
       ~Operation(void);
 
-/*
-      Message Command(Message);
-*/
       void Process();
 
     protected:

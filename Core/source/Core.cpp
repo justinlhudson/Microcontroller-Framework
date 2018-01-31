@@ -108,11 +108,11 @@ THREAD_FUNCTION Monitor(THREAD_ARGS args)
     { //Time
       RelativeTimeClock::TimeSpan_t timeSpan = RelativeTimeClock::Instance()->Get();
 
-      Trace::Instance()->Log(Trace::Debug," %d/%d:%d:%d:%d ", \
+      Trace::Instance()->Log(Trace::Debug," %d/%d:%d:%d:%d \n\r", \
                                timeSpan.Year,timeSpan.Day,timeSpan.Hour,timeSpan.Minute,timeSpan.Second);
     }
 
-    Delay((double)(WDT_TIMER_TIMEOUT*0.50));  //keeps timing with RTOS withing 50% range else reboot
+    Delay((double)(WDT_TIMER_TIMEOUT*0.50));  //keeps timing with RTOS within 50% range else reboot
   }
 }
 

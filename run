@@ -18,5 +18,5 @@ if [ ! -z "$1" ] && [[ "$1" == "--program" ]]; then
 elif [ ! -z "$1" ] && [[ "$1" == "--screen" ]]; then
   screen $_port $_baud
 else
-  make clean && make BOARD=arduino_mega MODEL=atmega2560 FREQUENCY=16000000 NAME=$_name
+  make clean && make BOARD=arduino_mega MODEL=atmega2560 FREQUENCY=16000000 NAME=$_name TRACE=128
 fi

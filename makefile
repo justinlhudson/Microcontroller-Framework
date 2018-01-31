@@ -12,7 +12,7 @@ MCU = $(MODEL)
 # Processor frequency (e.g. 16000000)
 F_CPU = $(FREQUENCY)
 
-# Trace level 128 ~ ALL, MAX)
+# Trace level (e.g. 128 ~ ALL, MAX)
 ifndef TRACE
 	TRACE = 128
 endif
@@ -97,6 +97,11 @@ Service/source/SPI.cpp \
 Component/source/RelativeTimeClock.cpp \
 Core/source/Core.cpp \
 Core/source/Application.cpp
+
+# start of actual application work
+CPPSRC += \
+Application/source/Operation.cpp \
+Application/source/Run.cpp
 
 #ifneq ($(TEST), TEST=0)
 #	CSRC += \

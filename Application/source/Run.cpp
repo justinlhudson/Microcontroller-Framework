@@ -37,36 +37,6 @@ void Echo(object* value)
 
   // report to screen what is being typed
   Trace::Instance()->Log(Trace::Operation,"%s", result);
-/*
-  static Operation::Message message;
-  static int8 index = 0;
-  static int8 parse = 0;
-
-  if (result  == ',')
-  {
-    parse++;
-  }
-  else if (result  == '\n')
-  {
-    index = 0;
-    parse = 0;
-
-    operation->Command(message);
-  }
-  else
-  {
-    if(parse == 0)
-      message.Command[index] = result;
-    if(parse == 1)
-      message.Operation[index] = result;
-    if(parse == 2)
-      message.Value[index] = result;
-    if(parse == 3)
-      message.Response[index] = result;
-
-    index++;
-  }
-*/
 }
 
 void Setup(void)
@@ -82,7 +52,7 @@ void Loop(void)
 {
   //Trace::Instance()->Log(Trace::Info, "*"); // heartbeat
 
-    //ToDo: run operation queue worker process
+  //ToDo: run operation queue worker process
   operation->Process();
 
   Delay(125);
