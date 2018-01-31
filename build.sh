@@ -12,10 +12,10 @@ else
   _port=/dev/tty.usbmodem1411
 fi
 
-if [ ! -z "$1" ] && [[ "$1" == "-p" ]]; then
+if [ ! -z "$1" ] && [[ "$1" == "--program" ]]; then
   screen -X -S $(lsof | grep $_port | awk '{print $2}') quit || true
   avrdude -F -D -c stk500v2 -p m2560 -b $_baud -P $_port -U flash:w:$_name.hex -U eeprom:w:$_name.eep
-elif [ ! -z "$1" ] && [[ "$1" == "-s" ]]; then
+elif [ ! -z "$1" ] && [[ "$1" == "--screen" ]]; then
   screen $_port $_baud
 else
   make clean && make BOARD=arduino_mega MODEL=atmega2560 FREQUENCY=16000000 NAME=$_name
