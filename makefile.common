@@ -19,7 +19,7 @@ else
         CURRENT_OS = LINUX
     endif
     ifeq ($(UNAME_S),Darwin)
-        CURRENT_OS = MAC
+        CURRENT_OS = OSX
     endif
 endif
 # print variable
