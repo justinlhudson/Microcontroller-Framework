@@ -101,7 +101,7 @@ Include your source in MakeFile under:
       |-- Core
             * Entry point with simple extern functions (see Implementation) as starting point for application specifics
       |-- Application
-            * Everything (i.e. catch-all) for the application specific files
+            * Everything (i.e. catch-all) for the application specific files (i.e. not framework dependent)
 
 ## Hardware
 
