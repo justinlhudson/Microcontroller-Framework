@@ -3,21 +3,20 @@
 set -e
 
 # Configure
+_server=raspberrypi
+_port=/dev/ttyACM0
+#_serverlocalhost
+#_port=/dev/tty.usbmodem1411
 _name=development
 _baud=115200
-
-if [ ! -z "$2" ]; then
-  _port="$2"
-else
-  _port=/dev/tty.usbmodem1411
-fi
+# All=128, Fatal=1, Error=2, Warning=3, Info=4, Debug=5, Operation = -1, None = -128
+_trace=128
 
 if [ ! -z "$1" ] && [[ "$1" == "--program" ]]; then
-  # kill screen if running (just in-case)
-  screen -X -S $(lsof | grep $_port | awk '{print $2}') quit || true
-  avrdude -F -D -c stk500v2 -p m2560 -b $_baud -P $_port -U flash:w:$_name.hex -U eeprom:w:$_name.eep
+  scp -r -q $(pwd)/$_name.* $_server:/tmp/
+  ssh $_server "avrdude -F -D -c stk500v2 -p m2560 -b $_baud -P $_port -U flash:w:$_name.hex -U eeprom:w:$_name.eep"
 elif [ ! -z "$1" ] && [[ "$1" == "--screen" ]]; then
-  screen $_port $_baud
+  ssh $_server "screen $_port $_baud"
 else
-  make clean && make BOARD=arduino_mega MODEL=atmega2560 FREQUENCY=16000000 NAME=$_name TRACE=128
+  ssh $_server "make clean && make BOARD=arduino_mega MODEL=atmega2560 FREQUENCY=16000000 NAME=$_name TRACE=$_trace"
 fi
