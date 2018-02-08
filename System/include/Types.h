@@ -1,10 +1,10 @@
 /*-----------------------------------------------------------------------------
- * 
+ *
  * Released: <2010/03/25>
  * Modified: <YEAR/MONTH/DAY>
- * 
- * Description: 
- * 
+ *
+ * Description:
+ *
  *-----------------------------------------------------------------------------
  */
 
@@ -25,7 +25,7 @@
   #define null                          NULL
 #endif
 
-#define END_CHAR                        '\0'
+#define NULL_CHAR                        '\0'
 
 typedef void object;
 //system int
@@ -79,7 +79,7 @@ typedef volatile uint8_t     reg8;
 //Note: PROGMEM stores in flash
 
 //EEPROM Memory Storage
-//(i.e. const char variable[] PROGMEM = { } )  
+//(i.e. const char variable[] PROGMEM = { } )
 
 ///  ***  C++ Class Support *** ///
 
@@ -94,10 +94,10 @@ typedef volatile uint8_t     reg8;
       pMem = malloc(size);
 
     return pMem;
-  }; 
+  };
 
-  inline void* operator new(uint16 size, void *ptr) 
-  { 
+  inline void* operator new(uint16 size, void *ptr)
+  {
     if(size == 0)
       size= 1;
 
@@ -111,14 +111,14 @@ typedef volatile uint8_t     reg8;
     return pMem;
   };
 
-  inline void operator delete(void *ptr) 
-  { 
+  inline void operator delete(void *ptr)
+  {
     if(ptr != NULL)
       free(ptr);
   };
 
-  inline void* operator new[](uint16 size) 
-  { 
+  inline void* operator new[](uint16 size)
+  {
     if(size == 0)
       size= 1;
 
@@ -130,7 +130,7 @@ typedef volatile uint8_t     reg8;
   };
 
   inline void* operator new[](uint16 size, void *ptr)
-  { 
+  {
     if(size == 0)
       size= 1;
 
@@ -145,7 +145,7 @@ typedef volatile uint8_t     reg8;
   };
 
   inline void operator delete[](void *ptr)
-  { 
+  {
     if(ptr != NULL)
       free(ptr);
   };
@@ -155,10 +155,10 @@ typedef volatile uint8_t     reg8;
 
   int __cxa_guard_acquire(__guard *g) {return !*(char *)(g);};
   void __cxa_guard_release (__guard *g) {*(char *)g = 1;};
-  void __cxa_guard_abort (__guard *) {}; 
+  void __cxa_guard_abort (__guard *) {};
 
   // this is applicable if using pure virtual inheritance.
-  void __cxa_pure_virtual(void) {}; 
+  void __cxa_pure_virtual(void) {};
 */
 #else
   /*
@@ -170,7 +170,7 @@ typedef volatile uint8_t     reg8;
   extern "C" void __cxa_guard_abort (__guard *);
 
   // this is applicable if using pure virtual inheritance.
-  extern "C" void __cxa_pure_virtual(void); 
+  extern "C" void __cxa_pure_virtual(void);
   */
 #endif
 

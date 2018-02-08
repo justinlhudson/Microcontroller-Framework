@@ -1,10 +1,10 @@
 /*-----------------------------------------------------------------------------
- * 
+ *
  * Released: <2010/08/04>
  * Modified: <YEAR/MONTH/DAY>
- * 
+ *
  * Description: Main entry point!
- * 
+ *
  *-----------------------------------------------------------------------------
  */
 
@@ -70,7 +70,7 @@ intsys main(void)
   Delay(250);  // if connecting for tracing give some time to see traces
   Trace::Instance()->Log(Trace::Info,"\n\rReady...\n\r");
 
-  THREAD_SCHEDULER(); //is a locking function 
+  THREAD_SCHEDULER(); //is a locking function
 
   /*
   while(true)
@@ -104,11 +104,11 @@ THREAD_FUNCTION Monitor(THREAD_ARGS args)
   while(true)
   {
     WDT::Reset();  // kick the dog!
-    
+
     { //Time
       RelativeTimeClock::TimeSpan_t timeSpan = RelativeTimeClock::Instance()->Get();
 
-      Trace::Instance()->Log(Trace::Debug," %d/%d:%d:%d:%d \n\r", \
+      //Trace::Instance()->Log(Trace::Debug," %d/%d:%d:%d:%d \n\r", \
                                timeSpan.Year,timeSpan.Day,timeSpan.Hour,timeSpan.Minute,timeSpan.Second);
     }
 

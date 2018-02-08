@@ -1,11 +1,11 @@
 /*-----------------------------------------------------------------------------
- * 
+ *
  * Released: <2009/11/28>
  * Modified: <YEAR/MONTH/DAY>
- * 
+ *
  * Description: Used as "main" startup for operations, not specific to
  *              controller, but for implementation of desired application(s).
- * 
+ *
  *-----------------------------------------------------------------------------
  */
 
@@ -29,7 +29,7 @@ using namespace Service;
 
 extern void Setup(void);
 extern void Loop(void);
-extern void Echo(object *value);
+extern void Input(object *value);
 
 namespace Core
 {
@@ -40,7 +40,7 @@ namespace Core
   class Application : protected ThreadAbstract, private ObserverAbstract
   {
     public:
-      
+
       /// <summary>
       /// Constructor/Desctructor
       /// </summary>
@@ -50,7 +50,7 @@ namespace Core
     protected:
 
     private:
-     
+
       Trace *_trace;
 
       void Update(object *);

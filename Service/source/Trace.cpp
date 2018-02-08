@@ -4,7 +4,7 @@
 using namespace Service;
 
 //init static members
-Trace* Trace::_instance = 0;
+Trace* Trace::_instance = NULL;
 //define singleton instance (to call contructor)
 static Trace _singleton;
 
@@ -19,24 +19,24 @@ _level(Trace::None), _display(true)
 //#endif
 
 Trace::~Trace()
-{  
+{
   Deactivate();
   delete _usart;
 }
 
 Trace* Trace::Instance()
 {
-  if(_instance == 0)
+  if(_instance == NULL)
     _instance = &_singleton;
   return _instance;
 }
 
 void Trace::Activate()
-{ 
+{
   #if defined(TRACE_LEVEL)
     _level = (Trace::Option)TRACE_LEVEL;  //from compiler variable input
   #else
-    _level = Debug;
+    _level = All;
   #endif
     _display = true;
 
@@ -55,10 +55,10 @@ bool Trace::Log(Trace::Option level, const int8* format, ...)
   if(_level >= level)
   {
     _lock.SectionEnter();
-    { 
+    {
       int32 length = 0;
       int8 buffer[Trace::MaxLength]; // faster/better on controller to not have to define each time to just set max
-      memset(buffer,'\0',ARRAY_SIZE(buffer));
+      memset(buffer,NULL_CHAR,ARRAY_SIZE(buffer));
 
       va_list args;
       va_start(args, format);
@@ -70,7 +70,8 @@ bool Trace::Log(Trace::Option level, const int8* format, ...)
       {
         for(uintsys i=0;i<length;i++)
         {
-           _usart->Send(buffer[i]);
+           int8 buf = buffer[i];
+           _usart->Send(buf);
         }
       }
     }

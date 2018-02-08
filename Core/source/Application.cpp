@@ -1,10 +1,10 @@
 /*-----------------------------------------------------------------------------
- * 
+ *
  * Released: <2010/03/25>
  * Modified: <YEAR/MONTH/DAY>
- * 
+ *
  * Description: Body File.
- * 
+ *
  *-----------------------------------------------------------------------------
  */
 
@@ -36,7 +36,7 @@ Application::~Application(void)
 
 void Application::Update(object *value)
 {
-  Echo(value);
+  Input(value);
 }
 
 void Application::PreExecute(void)

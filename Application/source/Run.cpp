@@ -25,27 +25,20 @@ using namespace Service;
 #include "Core/include/Application.hpp"
 using namespace Core;
 
-#include "../include/Command.hpp"
 #include "../include/Operation.hpp"
 using namespace Application;
 
 Operation operation;
-Command command;
 
-void Echo(object* value)
+
+void Input(object* value)
 {
   intsys iptr = (intsys)value;  //cast objects
   int8 input = (int8)iptr;
 
-  int8 status = 0;
-  Command::Message message = command.Encode(input, &status);
-
-  if (status != 0)
-  {
-    message = operation.Commander(message);
-    int8* message_str = command.Decode(message);
-    Trace::Instance()->Log(Trace::Operation, "%s, \r\n", message_str);
-  }
+  Trace::Instance()->Log(Trace::Operation,"%c", input); //echo
+  if(input == '\r') // screen terminal only send '\r' on <enter>
+    Trace::Instance()->Log(Trace::Operation,"%c", '\n');
 }
 
 void Setup(void)
