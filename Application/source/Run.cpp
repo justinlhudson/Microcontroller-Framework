@@ -1,10 +1,10 @@
 /*-----------------------------------------------------------------------------
- * 
+ *
  * Released: <2014/01/26>
  * Modified: <YEAR/MONTH/DAY>
- * 
+ *
  * Description: Entry point!
- * 
+ *
  *-----------------------------------------------------------------------------
  */
 
@@ -25,18 +25,27 @@ using namespace Service;
 #include "Core/include/Application.hpp"
 using namespace Core;
 
+#include "../include/Command.hpp"
 #include "../include/Operation.hpp"
 using namespace Application;
 
-Operation* operation = new Operation();
+Operation operation;
+Command command;
 
 void Echo(object* value)
 {
   intsys iptr = (intsys)value;  //cast objects
-  int8 result = (int8)iptr;
+  int8 input = (int8)iptr;
 
-  // report to screen what is being typed
-  Trace::Instance()->Log(Trace::Operation,"%s", result);
+  int8 status = 0;
+  Command::Message message = command.Encode(input, &status);
+
+  if (status != 0)
+  {
+    message = operation.Commander(message);
+    int8* message_str = command.Decode(message);
+    Trace::Instance()->Log(Trace::Operation, "%s, \r\n", message_str);
+  }
 }
 
 void Setup(void)
@@ -50,10 +59,6 @@ void Setup(void)
 
 void Loop(void)
 {
-  //Trace::Instance()->Log(Trace::Info, "*"); // heartbeat
-
-  //ToDo: run operation queue worker process
-  operation->Process();
-
-  Delay(125);
+  operation.Process();
+  Delay(125);  //just in-case function returns do not spin out of control
 }

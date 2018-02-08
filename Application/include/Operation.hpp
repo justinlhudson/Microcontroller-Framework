@@ -24,6 +24,8 @@ extern "C"
 #include "Service/include/Trace.hpp"
 using namespace Service;
 
+#include "../include/Command.hpp"
+using namespace Application;
 
 namespace Application
 {
@@ -33,6 +35,8 @@ namespace Application
 
       Operation(void);
       ~Operation(void);
+
+      Command::Message Commander(Command::Message);
 
       void Process();
 
