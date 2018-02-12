@@ -6,5 +6,5 @@ CPPSRC += \
 
 #Driver/source/UltrasonicSensor.cpp \
 #Driver/source/Servo.cpp \
-#Driver/source/Motor.cpp
+#Driver/source/PWM.cpp
 

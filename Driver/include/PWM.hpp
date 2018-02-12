@@ -1,15 +1,15 @@
 /*-----------------------------------------------------------------------------
- * 
+ *
  * Released: <2010/08/04>
  * Modified: <YEAR/MONTH/DAY>
- * 
+ *
  * Description: Under Work!
- * 
+ *
  *-----------------------------------------------------------------------------
  */
 
-#ifndef _MOTOR_HPP_
-#define _MOTOR_HPP_
+#ifndef _PWM_HPP_
+#define _PWM_HPP_
 
 #include <stdio.h>
 #include <stdarg.h>
@@ -26,19 +26,19 @@ using namespace Service;
 namespace Driver
 {
   /// <summary>
-  /// Motor Controller.
+  /// PWM Controller.
   /// </summary>
   /// <remarks></remarks>
-  class Motor
+  class PWM
   {
     public:
-      
+
       /// <summary>
       /// Constructor for PWM using 8-bit timer.
       /// </summary>
-      /// <param name="timer"/> 
-      Motor(uint8 timer=2);
-      ~Motor(void);
+      /// <param name="timer"/>
+      PWM(uint8 timer=2);
+      ~PWM(void);
 
       /// <summary>
       /// Speed range by value
@@ -48,7 +48,7 @@ namespace Driver
       void Speed(uint8, uint8);
 
     protected:
-      
+
     private:
       uint8 _timer;
 
