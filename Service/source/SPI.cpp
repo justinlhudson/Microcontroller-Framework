@@ -73,7 +73,7 @@ SPI::~SPI(void)
 
 uint8 SPI::Transfer(uint8 value)
 {
-  uint8 result=NULL;
+  uint8 result;
   _lock.SectionEnter();
   {
     SelectPin(true);
