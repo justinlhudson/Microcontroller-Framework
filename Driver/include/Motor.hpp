@@ -31,10 +31,9 @@ namespace Driver
   class Motor
   {
     public:
-      inline Motor(uint8 port, uint8 pins[], float duty_cycle=1.00)
+      inline Motor(uint8 port, uint8 pins[])
       {
         memcpy(_pins, pins, MOTOR_PINS * sizeof *_pins);
-        _duty_cycle = duty_cycle;
 
         //output, set low
         switch(port)
@@ -63,9 +62,9 @@ namespace Driver
         }
         CRITICAL_SECTION_EXIT();
       }
-      
+
       virtual ~Motor() {};
-      
+
       enum class Mode : uint8
       {
         Clockwise = 0,
@@ -74,7 +73,7 @@ namespace Driver
         Free = 4
       };
 
-      inline virtual void Action(Mode mode, uint16 cycles=1)
+      inline virtual void Action(Mode mode, uint16 cycles=1, float duty=1.0)
       {
         // Todo: actually test diretion or swith wires...
         switch(mode)
@@ -82,12 +81,12 @@ namespace Driver
           case Mode::Clockwise:
             PORT_HIGH(*_port,(1<<_pins[1]));
             PORT_LOW(*_port,(1<<_pins[2]));
-            PWM(cycles);
+            PWM(cycles, duty);
           break;
           case Mode::CounterClockwise:
             PORT_LOW(*_port,(1<<_pins[1]));
             PORT_HIGH(*_port,(1<<_pins[2]));
-            PWM(cycles);
+            PWM(cycles, duty);
           break;
           case Mode::Hold:
             PORT_HIGH(*_port,(1<<_pins[0]));
@@ -108,11 +107,9 @@ namespace Driver
       reg8 *_port;
       reg8 *_ddr;
 
-      float _duty_cycle;
-
       // Bit Bang PWM...
       // Example: Duty = 100 ~= 10%
-      inline void PWM(uint16 cycles=1)
+      inline void PWM(uint16 cycles, float duty)
       {
          if(cycles == 0)
            return;
@@ -120,10 +117,10 @@ namespace Driver
          for(uint8 x=0; x<=cycles;x++)
          {
             PORT_HIGH(*_port,(1<<_pins[0])); // on
-            Delay(uint16(hz*_duty_cycle)); // Approximately % duty cycle @ 1KHz
+            Delay(uint16(hz*duty)); // Approximately % duty cycle @ 1KHz
             PORT_LOW(*_port,(1<<_pins[0])); // off
             if(cycles > 1)
-              Delay(uint16(hz - (hz*_duty_cycle)));
+              Delay(uint16(hz - (hz*duty)));
             else
               break;
         }
