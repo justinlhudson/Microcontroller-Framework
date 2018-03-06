@@ -117,10 +117,10 @@ namespace Driver
          for(uint8 x=0; x<=cycles;x++)
          {
             PORT_HIGH(*_port,(1<<_pins[0])); // on
-            Delay(uint16(hz*duty)); // Approximately % duty cycle @ 1KHz
+            Delay((uint16)hz*duty); // Approximately % duty cycle @ 1KHz
             PORT_LOW(*_port,(1<<_pins[0])); // off
             if(cycles > 1)
-              Delay(uint16(hz - (hz*duty)));
+              Delay((uint16)(hz - (hz*duty)));
             else
               break;
         }
