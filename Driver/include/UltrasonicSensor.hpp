@@ -67,8 +67,8 @@ namespace Driver
       float _error;
 
       uint8 _pin;
-      reg8 *_port;
-      reg8 *_ddr;
+      volatile reg8 *_port;
+      volatile reg8 *_ddr;
   };
 };
 #endif
