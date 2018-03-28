@@ -26,7 +26,7 @@ Application::Application(void) : ThreadAbstract(), ObserverAbstract()
   _trace = Trace::Instance();
   _trace->Attach(this);
 
-  Start(ThreadAbstract::Normal);
+  Start(ThreadAbstract::Highest);
 }
 
 Application::~Application(void)
