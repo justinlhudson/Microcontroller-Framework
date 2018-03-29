@@ -17,6 +17,7 @@
 
 extern "C"
 {
+  #include "System/include/Definitions.h"
   #include "System/include/Types.h"
   #include "System/include/Tools.h"
 }
@@ -116,9 +117,15 @@ namespace Driver
          uint16 hz = 1000; // 1Khz
          for(uint8 x=0; x<=cycles;x++)
          {
-            PORT_HIGH(*_port,(1<<_pins[0])); // on
-            Delay((uint16)hz*duty); // Approximately % duty cycle @ 1KHz
-            PORT_LOW(*_port,(1<<_pins[0])); // off
+            // time specific critical, so lock process
+            //CRITICAL_SECTION_ENTER();
+            {
+              PORT_HIGH(*_port,(1<<_pins[0])); // on
+              //DELAY_MS((uint16)hz*duty);
+              Delay((uint16)hz*duty); // Approximately % duty cycle @ 1KHz
+              PORT_LOW(*_port,(1<<_pins[0])); // off
+            }
+            //CRITICAL_SECTION_EXIT();
             if(cycles > 1)
               Delay((uint16)(hz - (hz*duty)));
             else
