@@ -52,7 +52,7 @@
 #endif
 
 // MAX = 256
-#define USART_BUFFER_LENGTH                               128
+#define USART_BUFFER_LENGTH                               100
 
 //Subject/Observer
 #define MAX_CLASS_OBSERVERS                               16
