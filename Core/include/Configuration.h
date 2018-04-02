@@ -14,8 +14,8 @@
 //Note: Timer1 (16-bit) is used for FreeRTOS
 
 //ThreadPool
-#define THREAD_POOL_WORKERS                               2
-#define THREAD_POOL_SIZE                                  9
+#define THREAD_POOL_WORKERS                               1
+#define THREAD_POOL_SIZE                                  6
 
 // Defines number of tasks to be ready to create by changing heap size allocated.
 // Note: This is in addition to current framework setup/operations.
@@ -52,10 +52,10 @@
 #endif
 
 // MAX = 256
-#define USART_BUFFER_LENGTH                               100
+#define USART_BUFFER_LENGTH                               90
 
 //Subject/Observer
-#define MAX_CLASS_OBSERVERS                               16
+#define MAX_CLASS_OBSERVERS                               8
 
 //WDT ms.
 // Important, with RTOS timing do not increase above 2 seconds
