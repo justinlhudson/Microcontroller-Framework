@@ -5,9 +5,8 @@ using namespace Service;
 SubjectAbstract::SubjectAbstract()
 {
   _observersSize = 0;
-  _observersSizeMax = MAX_OBSERVERS;//maxObservers;
 
-  for(uint8 i=0;i<_observersSizeMax;i++)
+  for(uint8 i = 0;i < MAX_OBSERVERS;i++)
     _observers[i] = NULL;
 }
 
@@ -19,7 +18,7 @@ bool SubjectAbstract::Attach(ObserverAbstract *observer)
 {
   bool status = true;
 
-  if(_observersSize < _observersSizeMax)
+  if(_observersSize < MAX_OBSERVERS)
     _observers[_observersSize++] = observer;
   else
     status = false;

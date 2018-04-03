@@ -15,7 +15,7 @@
 
 //ThreadPool
 #define THREAD_POOL_WORKERS                               1
-#define THREAD_POOL_SIZE                                  6
+#define THREAD_POOL_SIZE                                  3
 
 // Defines number of tasks to be ready to create by changing heap size allocated.
 // Note: This is in addition to current framework setup/operations.
@@ -55,7 +55,7 @@
 #define USART_BUFFER_LENGTH                               90
 
 //Subject/Observer
-#define MAX_CLASS_OBSERVERS                               8
+#define MAX_CLASS_OBSERVERS                               3
 
 //WDT ms.
 // Important, with RTOS timing do not increase above 2 seconds

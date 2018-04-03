@@ -73,12 +73,10 @@ void USART_Reset(uint8 usart)
 
 bool USART_IsAvailable(uint8 usart)
 {
-  bool status = false;
-
   if(USART[usart].offset != USART[usart].count)
-    status = true;
+    return true;
 
-  return status;
+  return false;
 }
 
 void USART_Send(uint8 usart, int8 value)

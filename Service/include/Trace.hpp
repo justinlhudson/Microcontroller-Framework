@@ -44,12 +44,6 @@ namespace Service
   class Trace : public SubjectAbstract, private ThreadAbstract
   {
     public:
-
-      /// <summary>
-      /// Constant max. value for message string length.
-      /// </summary>
-      static const uint32 MaxLength;
-
       /// <summary>
       /// Defines trace level of when to log/display or not.
       /// </summary>

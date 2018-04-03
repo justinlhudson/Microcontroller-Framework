@@ -117,7 +117,6 @@ namespace Service
 
     private:
 
-      uint8 _observersSizeMax;
       uint8 _observersSize;
 
       static const uint8 MAX_OBSERVERS = MAX_CLASS_OBSERVERS;

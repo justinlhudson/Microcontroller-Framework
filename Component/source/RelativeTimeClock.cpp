@@ -52,11 +52,8 @@ void RelativeTimeClock::Off(void)
 
 bool RelativeTimeClock::Set(RelativeTimeClock::TimeSpan_t timeSpan)
 {
-  bool status = true;
-
   _timeSpan = timeSpan;
-
-  return status;
+  return true;
 }
 
 RelativeTimeClock::TimeSpan_t RelativeTimeClock::Get(void)

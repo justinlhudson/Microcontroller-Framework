@@ -43,12 +43,6 @@ namespace Service
   class ThreadPool
   {
     public:
-
-      /// <summary>
-      /// Max number of functions to hold in queue.
-      /// </summary>
-      static const uintsys MaxSize;
-
       /// <summary>
       /// Define priority level for thread. 
       /// </summary>

@@ -30,14 +30,14 @@ namespace Service
       /// </summary>
       /// <param name="data" />
       /// <param name="address" />
-      static void Store(int8, uint32);
+      static void Store(int8, uintsys);
 
       /// <summary>
       /// Read from EEPROM
       /// </summary>
       /// <param name="address" />
       /// <returns>u/int8 value stored</returns>
-      static int8 Load(uint32);
+      static int8 Load(uintsys);
 
       /// <summary>
       /// Write to EEPROM
@@ -45,7 +45,7 @@ namespace Service
       /// <param name="data" />
       /// <param name="length" />
       /// <param name="address" />
-      static void Store(const int8*, int8, uint32);
+      static void Store(const int8*, int8, uintsys);
 
       /// <summary>
       /// Read from EEPROM
@@ -53,7 +53,7 @@ namespace Service
       /// <param name="data">return values to buffer pointer</param>
       /// <param name="length" />
       /// <param name="address" />
-      static void Load(int8*, int8, uint32);
+      static void Load(int8*, int8, uintsys);
 
       /// <summary>
       /// Get/Set

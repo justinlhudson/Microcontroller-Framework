@@ -8,8 +8,6 @@ Trace* Trace::_instance = NULL;
 //define singleton instance (to call contructor)
 static Trace _singleton;
 
-const uint32 Trace::MaxLength = USART_BUFFER_LENGTH;
-
 Trace::Trace(uint8 usart, uint32 baud) : SubjectAbstract(), ThreadAbstract(),
 _level(Trace::None), _display(true)
 {
@@ -51,13 +49,12 @@ void Trace::Deactivate()
 //printf("%s",buffer);
 bool Trace::Log(Trace::Option level, const int8* format, ...)
 {
-  bool status = true;
   if(_level >= level)
   {
     _lock.SectionEnter();
     {
-      int32 length = 0;
-      int8 buffer[Trace::MaxLength]; // faster/better on controller to not have to define each time to just set max
+      intsys length = 0;
+      int8 buffer[USART_BUFFER_LENGTH]; // faster/better on controller to not have to define each time to just set max
       memset(buffer,NULL_CHAR,ARRAY_SIZE(buffer));
 
       va_list args;
@@ -68,7 +65,7 @@ bool Trace::Log(Trace::Option level, const int8* format, ...)
 
       if(_display)
       {
-        for(uintsys i=0;i<length;i++)
+        for(intsys i=0; i < length; i++)
         {
            int8 buf = buffer[i];
            _usart->Send(buf);
@@ -78,7 +75,7 @@ bool Trace::Log(Trace::Option level, const int8* format, ...)
     _lock.SectionExit();
   }
 
-  return status;
+  return true;
 }
 
 void Trace::Level(Trace::Option level)

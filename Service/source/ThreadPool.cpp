@@ -11,8 +11,6 @@ ThreadPool* ThreadPool::_instance = 0;
 //define singleton instance (to call contructor)
 static ThreadPool _singleton;
 
-const uintsys ThreadPool::MaxSize = THREAD_POOL_SIZE;
-
 ThreadPool::ThreadPool(ThreadPool::Priority priority):
  _count(0), _active(0), _run(true), _suspend(true)
 {
