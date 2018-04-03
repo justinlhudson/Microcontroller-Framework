@@ -3,8 +3,8 @@
 set -e
 
 # Configure
-_server=raspberrypi
-_port=/dev/ttyACM0
+_servers="localhost raspberrypi"
+_ports="/dev/ttyACM0 /dev/tty.usbmodem14611"
 
 _name=development
 _baud=115200
@@ -12,9 +12,16 @@ _baud=115200
 _trace=128
 
 if [ ! -z "$1" ] && [[ "$1" == "--program" ]]; then
-  scp -r -q $(pwd)/$_name.* $_server:/tmp/
 #  ssh $_server "screen -X -S $(lsof | grep $_port | awk '{print $2}') quit || true"
-  ssh $_server "avrdude -F -D -c stk500v2 -p m2560 -b $_baud -P $_port -U flash:w:/tmp/$_name.hex -U eeprom:w:/tmp/$_name.eep"
+  for server in $_servers;
+  do
+    scp -r -q $(pwd)/$_name.* $_server:/tmp/ || true
+    for port in $_ports;
+    do
+      ssh $server "avrdude -F -D -c stk500v2 -p m2560 -b $_baud -P $port -U flash:w:/tmp/$_name.hex -U eeprom:w:/tmp/$_name.eep" || true
+      ssh $server "/usr/local/bin/avrdude -F -D -c stk500v2 -p m2560 -b $_baud -P $port -U flash:w:/tmp/$_name.hex -U eeprom:w:/tmp/$_name.eep" || true
+    done
+  done
 elif [ ! -z "$1" ] && [[ "$1" == "--screen" ]]; then
   screen $_port $_baud
 else
