@@ -110,28 +110,6 @@ Application/source/Run.cpp
 #endif
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-# Arduino speifics for external applications requirments.
-
-ifndef ARDUINO_DIR
-    AUTO_ARDUINO_DIR := $(firstword \
-        $(call dir_if_exists,/usr/share/arduino) \
-        $(call dir_if_exists,/Applications/Arduino.app/Contents/Resources/Java) \
-        $(call dir_if_exists,/Applications/Arduino.app/Contents/Java) )
-    ifdef AUTO_ARDUINO_DIR
-       ARDUINO_DIR = $(AUTO_ARDUINO_DIR)
-       $(call show_config_variable,ARDUINO_DIR,[AUTODETECTED])
-    else
-        echo $(error "ARDUINO_DIR is not defined")
-    endif
-else
-    $(call show_config_variable,ARDUINO_DIR,[USER])
-endif
-
-#EXTRAINCDIRS += \
-#$(ARDUINO_DIR)/hardware/arduino/avr/cores/arduino \
-#$(ARDUINO_DIR)/hardware/arduino/avr/variants/mega
-
-#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 #*** Extra features (non-core) ***#
 include makefile.extra
