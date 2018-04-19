@@ -20,9 +20,9 @@ endif
 ifndef TEST
 	TEST = 0
 endif
-# Display purposes ONLY
+# install file(s)
 ifndef NAME
-	NAME = development
+	NAME = program
 endif
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 

@@ -1,31 +1,40 @@
 #!/usr/bin/env bash
-
 set -e
 
-# Configure
-_servers="localhost raspberrypi"
-_ports="/dev/ttyACM0 /dev/tty.usbmodem14611 /dev/tty.usbmodem14241"
+### Configure ###
+_commands=$@
 
-_name=development
+_server="localhost"
+if [ ! -z "$1" ]; then
+  _server="$1"
+fi
+
+_port="/dev/ttyACM0"
+if [ ! -z "$2" ]; then
+  _port="$2"
+fi
+
+_name=program
 _baud=115200
 # All=128, Fatal=1, Error=2, Warning=3, Info=4, Debug=5, Operation = -1, None = -128
 _trace=128
 
+### Operations ###
+if [[ "$_commands" == *"--program"* ]]; then
+  echo "$_server"
+  if [[ "$_server" == *"localhost"* ]]; then
+    cp -rf /tmp/$_name.* /tmp/
+  else
+    scp -r -q /tmp/$_name.* $_server:/tmp/
+  fi
 
-if [ ! -z "$1" ] && [[ "$1" == "--program" ]]; then
-#  ssh $_server "screen -X -S $(lsof | grep $_port | awk '{print $2}') quit || true"
-  for server in $_servers;
-  do
-    echo "$server"
-    scp -r -q /tmp/$_name.* $server:/tmp/ || true
-    for port in $_ports;
-    do
-      echo "$port"
-      ssh $server "avrdude -F -D -c stk500v2 -p m2560 -b $_baud -P $port -U flash:w:/tmp/$_name.hex -U eeprom:w:/tmp/$_name.eep" || true
-      ssh $server "/usr/local/bin/avrdude -F -D -c stk500v2 -p m2560 -b $_baud -P $port -U flash:w:/tmp/$_name.hex -U eeprom:w:/tmp/$_name.eep" || true
-    done
-  done
-elif [ ! -z "$1" ] && [[ "$1" == "--screen" ]]; then
+  echo "$_port"
+  if [[ "$_server" == *"localhost"* ]]; then
+    avrdude -F -D -c stk500v2 -p m2560 -b $_baud -P $_port -U flash:w:/tmp/$_name.hex -U eeprom:w:/tmp/$_name.eep
+  else
+    ssh $_server "avrdude -F -D -c stk500v2 -p m2560 -b $_baud -P $_port -U flash:w:/tmp/$_name.hex -U eeprom:w:/tmp/$_name.eep"
+  fi
+elif [[ "$_commands" == *"--screen"* ]]; then
   screen $_port $_baud
 else
   make clean && make BOARD=arduino_mega MODEL=atmega2560 FREQUENCY=16000000 NAME=$_name TRACE=$_trace
