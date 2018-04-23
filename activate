@@ -2,7 +2,7 @@
 set -e
 
 ### Configure ###
-_commands=$@
+_commands="$@"
 
 _server="localhost"
 if [ ! -z "$1" ]; then
