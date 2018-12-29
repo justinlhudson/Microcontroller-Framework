@@ -53,12 +53,11 @@ void SPI_Initialize(uint32 clock, uint8 mode, uint8 bitOrder)
       // SS as output to not influence SPI operations
 
 #if defined(__AVR_ATmega2560__)
-      // Output
+      // setup for pins in/out mode
       PORT_SET(DDRB, (1<<PB0)); // SS
       PORT_SET(DDRB, (1<<PB1)); // SCK
-      PORT_SET(DDRB, (1<<PB2)); // MOSI
-      // Input
-      PORT_CLR(DDRB, (1<<PB3)); // MISO
+      PORT_SET(DDRB, (1<<PB2)); // MOSI, output
+      PORT_CLR(DDRB, (1<<PB3)); // MISO, input
 
       // gain exclusive access to SPI
       PORT_SET(PORTB, (1<<PB0));  // SS slow to select connected chip
@@ -96,6 +95,7 @@ void SPI_DeInitialize(void)
   }
 }
 
+// write & read at same time
 uint8 SPI_Transfer_Single(uint8 value)
 {
   SPDR = value;
@@ -105,6 +105,7 @@ uint8 SPI_Transfer_Single(uint8 value)
   return SPDR;
 }
 
+// write & read at same time
 void SPI_Transfer_Muiltiple(uint8* buffer, uint16 length)
 {
   if (length == 0) return;
@@ -112,6 +113,7 @@ void SPI_Transfer_Muiltiple(uint8* buffer, uint16 length)
   while (--length > 0) 
   {
     uint8 out = *(buffer + 1);
+    NOP;
     while ( !(SPSR & (1<<SPIF)) ) ;
     uint8 in = SPDR;
     SPDR = out;

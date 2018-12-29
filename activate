@@ -37,5 +37,7 @@ if [[ "$_commands" == *"--program"* ]]; then
 elif [[ "$_commands" == *"--screen"* ]]; then
   screen $_port $_baud
 else
+  # place avr-gcc6 first in path (for macOS)
+  export PATH=/usr/local/Cellar/avr-gcc@6/6.4.0/bin/:$PATH
   make clean && make BOARD=arduino_mega MODEL=atmega2560 FREQUENCY=16000000 NAME=$_name TRACE=$_trace
 fi

@@ -43,7 +43,7 @@ namespace Service
       /// Constructor
       /// </summary>
       /// <param name="selectPort">port for pins/param>
-      /// <param name="selectPin">select pin</param>
+      /// <param name="selectPin">select pin (enable chip, so can control more then one)</param>
       /// <param name="clock">matches closest</param>
       /// <param name="mode">0,1,2,3</param>
       /// <param name="bitOrder">LSB, MSB</param>
