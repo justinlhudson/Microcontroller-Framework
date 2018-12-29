@@ -21,14 +21,14 @@ _trace=128
 
 ### Operations ###
 if [[ "$_commands" == *"--program"* ]]; then
-  echo "$_server"
+  echo "Example arguments: 'localhost /dev/tty.usbmodem142401 --program'"
+
   if [[ "$_server" == *"localhost"* ]]; then
     echo ""
   else
     scp -r -q $_name.* $_server:/tmp/
   fi
 
-  echo "$_port"
   if [[ "$_server" == *"localhost"* ]]; then
     avrdude -F -D -c stk500v2 -p m2560 -b $_baud -P $_port -U flash:w:$_name.hex -U eeprom:w:$_name.eep
   else
@@ -37,6 +37,7 @@ if [[ "$_commands" == *"--program"* ]]; then
 elif [[ "$_commands" == *"--screen"* ]]; then
   screen $_port $_baud
 else
+  # Note: newer compiler showing issues, thus rolled back...
   # place avr-gcc6 first in path (for macOS)
   export PATH=/usr/local/Cellar/avr-gcc@6/6.4.0/bin/:$PATH
   make clean && make BOARD=arduino_mega MODEL=atmega2560 FREQUENCY=16000000 NAME=$_name TRACE=$_trace
