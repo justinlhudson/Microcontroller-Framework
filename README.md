@@ -77,7 +77,7 @@ Include your source in MakeFile under:
   This is the framework layout for usage in the application development
 
     |--
-      |-- run
+      |-- activate
             * default arguments, used to save typing (and remembering) for repeat terminal operations
       |-- makefile
       |-- makefile.common
