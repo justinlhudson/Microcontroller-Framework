@@ -21,7 +21,7 @@ _trace=128
 
 ### Operations ###
 if [[ "$_commands" == *"--program"* ]]; then
-  echo "Example arguments: 'localhost /dev/tty.usbmodem142401 --program'"
+  # Example arguments: 'localhost /dev/tty.usbmodem142401 --program'"
 
   if [[ "$_server" == *"localhost"* ]]; then
     echo ""
